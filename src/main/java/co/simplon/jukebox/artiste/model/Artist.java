@@ -13,14 +13,12 @@ public class Artist {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotBlank(message = "First name can't be empty")
-	private String firstName;
-
-	private String lastName;
+	@NotBlank(message = "Name can't be empty")
+	private String name;
 
 	private String bio;
 
-	private int fanNumber;
+	private Integer fanNumber;
 
 	public long getId() {
 		return id;
@@ -30,20 +28,12 @@ public class Artist {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getBio() {
@@ -54,11 +44,11 @@ public class Artist {
 		this.bio = bio;
 	}
 
-	public int getFanNumber() {
+	public Integer getFanNumber() {
 		return fanNumber;
 	}
 
-	public void setFanNumber(int fanNumber) {
+	public void setFanNumber(Integer fanNumber) {
 		this.fanNumber = fanNumber;
 	}
 

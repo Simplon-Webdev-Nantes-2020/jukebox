@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import co.simplon.jukebox.artiste.model.Artist;
@@ -31,8 +32,23 @@ public class ArtistServiceImpl implements ArtistService {
 	}
 	
 	@Override
-	public Artist update(Artist artist) {
-		return repository.save(artist);
+	public Artist update(Long id, Artist artist) {
+		
+		
+		Optional<Artist> optionalArtist = this.findById(id);
+		
+		if(optionalArtist.isPresent()) {
+			
+			Artist artistToUpdate = optionalArtist.get(); 
+			artistToUpdate.setName(artist.getName());
+			if (artist.getBio() != null)
+				artistToUpdate.setBio(artist.getBio());
+			if (artist.getFanNumber() != null)
+				artistToUpdate.setFanNumber(artist.getFanNumber());
+			return repository.save(artistToUpdate);
+		}
+		
+		return null;
 	}
 	
 	@Override

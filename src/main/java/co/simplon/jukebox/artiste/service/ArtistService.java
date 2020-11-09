@@ -10,6 +10,6 @@ public interface ArtistService {
 	Optional<Artist> findById(Long id);
 	List<Artist> findAll();
 	Artist insert(Artist artist);
-	Artist update(Artist artist);
+	Artist update(Long id, Artist artist);
 	void delete(Long id);
 }
