@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class Artist {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotBlank(message = "Name can't be empty")

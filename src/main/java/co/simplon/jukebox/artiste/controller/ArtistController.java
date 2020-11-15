@@ -83,7 +83,7 @@ public class ArtistController {
 	@CrossOrigin
 	@PostMapping("/artists")
 	ResponseEntity<Artist> addArtist(@Valid @RequestBody Artist artist){
-		return ResponseEntity.ok().body(artist);
+		return ResponseEntity.ok().body(service.insert(artist));
 	}
 	
 	@CrossOrigin
