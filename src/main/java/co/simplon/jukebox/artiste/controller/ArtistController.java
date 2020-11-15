@@ -34,7 +34,7 @@ public class ArtistController {
 	 * @return
 	 */
 	@CrossOrigin
-	@GetMapping("/artist/hello")
+	@GetMapping("/artists/hello")
 	ResponseEntity<Artist> getArtistToto() {
 		Artist hello = new Artist();
 		hello.setName("Hello");
@@ -49,8 +49,8 @@ public class ArtistController {
 	 * @return liste des artistes
 	 */
 	@CrossOrigin
-	@GetMapping("/artist")
-	public ResponseEntity<?> getAllArtiste(@RequestParam(value="search", defaultValue="") String search) {
+	@GetMapping("/artists")
+	public ResponseEntity<List<Artist>> getAllArtist(@RequestParam(value="search", defaultValue="") String search) {
 		List<Artist> listArtist;
 		try {
 			listArtist = service.findAll(search);
@@ -66,7 +66,7 @@ public class ArtistController {
 	 * @return
 	 */
 	@CrossOrigin
-	@GetMapping("/artist/{id}")
+	@GetMapping("/artists/{id}")
 	ResponseEntity<Artist> getArtistById(@PathVariable(value="id") long id) {
 		Optional<Artist> artist = service.findById(id);
 		if (artist.isEmpty()) {
@@ -81,30 +81,30 @@ public class ArtistController {
 	 * @return
 	 */
 	@CrossOrigin
-	@PostMapping("/artist")
-	Artist addArtist(@Valid @RequestBody Artist artist){
-		return service.insert(artist);
+	@PostMapping("/artists")
+	ResponseEntity<Artist> addArtist(@Valid @RequestBody Artist artist){
+		return ResponseEntity.ok().body(artist);
 	}
 	
 	@CrossOrigin
-	@PutMapping("/artist/{id}")
+	@PutMapping("/artists/{id}")
 	ResponseEntity<Artist> updateArtiste(@PathVariable(value="id") long id, @Valid @RequestBody Artist artist){
 		Artist updatedArtiste = service.update(id, artist);
 		if(updatedArtiste == null)
 			return ResponseEntity.notFound().build();
 		
-		return ResponseEntity.ok(updatedArtiste);
+		return ResponseEntity.ok().body(updatedArtiste);
 	}
 
 	@CrossOrigin
-	@DeleteMapping("/artist/{id}")
+	@DeleteMapping("/artists/{id}")
 	ResponseEntity<Artist> deleteArtist(@PathVariable(value="id") long id){
 		Optional<Artist> artist = service.findById(id);
 		if(artist.isEmpty())
 			return ResponseEntity.notFound().build();
 		
 		service.delete(artist.get().getId());
-		return ResponseEntity.ok().build();
+		return ResponseEntity.accepted().build();
 	}
 
 
