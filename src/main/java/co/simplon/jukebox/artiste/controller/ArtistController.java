@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
@@ -24,7 +25,6 @@ import co.simplon.jukebox.artiste.service.ArtistService;
 public class ArtistController {
 
 	@Autowired
-	
 	ArtistService service;
 	
 	/**
@@ -44,13 +44,20 @@ public class ArtistController {
 	}
 
 	/**
-	 * Liste de tous les artistes
-	 * @return
+	 * Liste des artistes
+	 * @param search : critère de recherche
+	 * @return liste des artistes
 	 */
 	@CrossOrigin
 	@GetMapping("/artist")
-	List<Artist> getAllArtiste() {
-		return service.findAll();
+	public ResponseEntity<?> getAllArtiste(@RequestParam(value="search", defaultValue="") String search) {
+		List<Artist> listArtist;
+		try {
+			listArtist = service.findAll(search);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(listArtist);
 	}
 
 	/**

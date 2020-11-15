@@ -17,8 +17,11 @@ public class ArtistServiceImpl implements ArtistService {
 	private ArtistRepository repository;
 	
 	@Override
-	public List<Artist> findAll() {
-		return repository.findAll();
+	public List<Artist> findAll(String search) {
+		if (! "".equals(search))
+			return repository.findByNameContaining(search);
+		else
+			return repository.findAll();
 	}
 	
 	@Override
