@@ -1,4 +1,4 @@
-use TEST_SCHEMA;
+use JUKEBOX_SCHEMA;
 insert into artist(name, bio, fan_number) 
 	values('Celtic woman','En 2004, les producteurs Sharon Browne et David Downes, directeur musical...',31760);
 insert into artist(name, bio, fan_number) 
