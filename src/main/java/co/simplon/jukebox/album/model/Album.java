@@ -20,8 +20,6 @@ public class Album {
 
 	private LocalDate releaseDate;
 
-	private Integer fanNumber;
-
 	public long getId() {
 		return id;
 	}
@@ -45,14 +43,5 @@ public class Album {
 	public void setReleasedate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-
-	public Integer getFanNumber() {
-		return fanNumber;
-	}
-
-	public void setFanNumber(Integer fanNumber) {
-		this.fanNumber = fanNumber;
-	}
-
 
 }

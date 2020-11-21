@@ -46,8 +46,6 @@ public class AlmbumServiceImpl implements AlbumService {
 			albumToUpdate.setTitle(album.getTitle());
 			if (album.getReleasedate() != null)
 				albumToUpdate.setReleasedate(album.getReleasedate());
-			if (album.getFanNumber() != null)
-				albumToUpdate.setFanNumber(album.getFanNumber());
 			return repository.save(albumToUpdate);
 		}
 		

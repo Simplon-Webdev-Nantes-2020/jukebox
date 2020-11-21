@@ -30,9 +30,9 @@ public class AlbumController {
 	AlbumService service;
 	
 	/**
-	 * Liste des albumes
+	 * Liste des albums
 	 * @param search : critère de recherche
-	 * @return liste des albumes
+	 * @return liste des albums
 	 */
 	@CrossOrigin
 	@GetMapping("/albums")
@@ -47,7 +47,7 @@ public class AlbumController {
 	}
 
 	/**
-	 * recherche d'un albume par son id
+	 * recherche d'un album par son id
 	 * @param id
 	 * @return
 	 */
@@ -62,7 +62,7 @@ public class AlbumController {
 	}
 	
 	/**
-	 * creation d'un albume
+	 * creation d'un album
 	 * @param album
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class AlbumController {
 	
 	@CrossOrigin
 	@PutMapping("/albums/{id}")
-	ResponseEntity<Album> updateAlbume(@PathVariable(value="id") long id, @Valid @RequestBody Album album){
+	ResponseEntity<Album> updateAlbum(@PathVariable(value="id") long id, @Valid @RequestBody Album album){
 		Album updatedAlbum = service.update(id, album);
 		if(updatedAlbum == null)
 			return ResponseEntity.notFound().build();
