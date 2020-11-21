@@ -1,4 +1,4 @@
-package co.simplon.jukebox.track.service;
+package co.simplon.jukebox.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.simplon.jukebox.track.model.Track;
-import co.simplon.jukebox.track.repository.TrackRepository;
+import co.simplon.jukebox.model.Track;
+import co.simplon.jukebox.repository.TrackRepository;
 
 
 @Service

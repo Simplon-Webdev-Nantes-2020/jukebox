@@ -1,10 +1,10 @@
-package co.simplon.jukebox.album.repository;
+package co.simplon.jukebox.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.simplon.jukebox.album.model.Album;
+import co.simplon.jukebox.model.Album;
 
 
 public interface AlbumRepository extends JpaRepository<Album, Long>{

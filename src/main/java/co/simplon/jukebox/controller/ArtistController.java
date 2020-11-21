@@ -1,4 +1,4 @@
-package co.simplon.jukebox.artiste.controller;
+package co.simplon.jukebox.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
-import co.simplon.jukebox.artiste.model.Artist;
-import co.simplon.jukebox.artiste.service.ArtistService;
+import co.simplon.jukebox.model.Artist;
+import co.simplon.jukebox.service.ArtistService;
 
 @RestController
 @RequestMapping("/jukebox")

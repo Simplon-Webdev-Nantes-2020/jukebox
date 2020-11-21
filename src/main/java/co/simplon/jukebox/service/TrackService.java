@@ -1,9 +1,9 @@
-package co.simplon.jukebox.track.service;
+package co.simplon.jukebox.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import co.simplon.jukebox.track.model.Track;
+import co.simplon.jukebox.model.Track;
 
 
 public interface TrackService {

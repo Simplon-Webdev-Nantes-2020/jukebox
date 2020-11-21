@@ -1,14 +1,13 @@
-package co.simplon.jukebox.artiste.service;
+package co.simplon.jukebox.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import co.simplon.jukebox.artiste.model.Artist;
-import co.simplon.jukebox.artiste.repository.ArtistRepository;
+import co.simplon.jukebox.model.Artist;
+import co.simplon.jukebox.repository.ArtistRepository;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {

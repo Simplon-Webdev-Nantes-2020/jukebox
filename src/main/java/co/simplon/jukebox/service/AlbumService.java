@@ -1,9 +1,9 @@
-package co.simplon.jukebox.album.service;
+package co.simplon.jukebox.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import co.simplon.jukebox.album.model.Album;
+import co.simplon.jukebox.model.Album;
 
 
 public interface AlbumService {

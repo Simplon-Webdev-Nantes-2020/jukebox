@@ -1,4 +1,4 @@
-package co.simplon.jukebox.artiste.model;
+package co.simplon.jukebox.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

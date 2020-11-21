@@ -1,9 +1,9 @@
-package co.simplon.jukebox.artiste.service;
+package co.simplon.jukebox.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import co.simplon.jukebox.artiste.model.Artist;
+import co.simplon.jukebox.model.Artist;
 
 public interface ArtistService {
 

@@ -1,10 +1,10 @@
-package co.simplon.jukebox.artiste.repository;
+package co.simplon.jukebox.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.simplon.jukebox.artiste.model.Artist;
+import co.simplon.jukebox.model.Artist;
 
 public interface ArtistRepository extends JpaRepository<Artist, Long>{
 

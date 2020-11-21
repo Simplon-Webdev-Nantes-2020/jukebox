@@ -1,4 +1,4 @@
-package co.simplon.jukebox.track.controller;
+package co.simplon.jukebox.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.jukebox.track.model.Track;
-import co.simplon.jukebox.track.service.TrackService;
+import co.simplon.jukebox.model.Track;
+import co.simplon.jukebox.service.TrackService;
 
 import javax.validation.Valid;
 

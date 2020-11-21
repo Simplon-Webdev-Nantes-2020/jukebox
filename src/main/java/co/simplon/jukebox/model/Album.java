@@ -1,4 +1,4 @@
-package co.simplon.jukebox.track.model;
+package co.simplon.jukebox.model;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Track {
+public class Album {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,7 @@ public class Track {
 	@NotBlank(message = "Name can't be empty")
 	private String title;
 
-	private int duration;
-	
-	private String preview;
+	private LocalDate releaseDate;
 
 	public long getId() {
 		return id;
@@ -38,20 +36,12 @@ public class Track {
 		this.title = title;
 	}
 
-	public int getDuration() {
-		return duration;
+	public LocalDate getReleasedate() {
+		return releaseDate;
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	public String getPreview() {
-		return preview;
-	}
-
-	public void setPreview(String preview) {
-		this.preview = preview;
+	public void setReleasedate(LocalDate releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 }
