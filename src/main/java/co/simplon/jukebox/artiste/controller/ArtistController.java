@@ -88,7 +88,7 @@ public class ArtistController {
 	
 	@CrossOrigin
 	@PutMapping("/artists/{id}")
-	ResponseEntity<Artist> updateArtiste(@PathVariable(value="id") long id, @Valid @RequestBody Artist artist){
+	ResponseEntity<Artist> updateArtist(@PathVariable(value="id") long id, @Valid @RequestBody Artist artist){
 		Artist updatedArtiste = service.update(id, artist);
 		if(updatedArtiste == null)
 			return ResponseEntity.notFound().build();
