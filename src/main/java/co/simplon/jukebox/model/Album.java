@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -19,6 +21,10 @@ public class Album {
 	private String title;
 
 	private LocalDate releaseDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "artist_id")
+	private Artist artist;
 
 	public long getId() {
 		return id;
