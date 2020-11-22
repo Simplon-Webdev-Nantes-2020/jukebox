@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Artist {
 
@@ -24,7 +26,8 @@ public class Artist {
 	private Integer fanNumber;
 	
 	@OneToMany(mappedBy = "artist")
-    private List<Album> albums;
+	@JsonManagedReference
+	private List<Album> albums;
 
 	public long getId() {
 		return id;
