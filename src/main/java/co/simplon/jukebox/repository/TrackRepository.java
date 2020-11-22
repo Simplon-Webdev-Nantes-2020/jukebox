@@ -9,5 +9,5 @@ import co.simplon.jukebox.model.Track;
 
 public interface TrackRepository extends JpaRepository<Track, Long>{
 
-	public List<Track> findByTitleContaining(String title) ;
+	public List<Track> findByTitleIgnoreCaseContaining(String title) ;
 }

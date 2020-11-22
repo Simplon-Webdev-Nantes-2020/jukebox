@@ -19,7 +19,7 @@ public class TrackServiceImpl implements TrackService {
 	@Override
 	public List<Track> findAll(String search) {
 		if (! "".equals(search))
-			return repository.findByTitleContaining(search);
+			return repository.findByTitleIgnoreCaseContaining(search);
 		else
 			return repository.findAll();
 	}

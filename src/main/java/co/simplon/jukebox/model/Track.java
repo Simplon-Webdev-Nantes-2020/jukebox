@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Track {
@@ -21,9 +24,9 @@ public class Track {
 	
 	private String preview;
 	
-	@ManyToOne
+	@ManyToOne @JoinColumn(name="albumId")
+	@JsonBackReference
 	private Album album;
-
 
 	public long getId() {
 		return id;
