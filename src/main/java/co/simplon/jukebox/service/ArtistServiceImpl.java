@@ -35,21 +35,10 @@ public class ArtistServiceImpl implements ArtistService {
 	
 	@Override
 	public Artist update(Long id, Artist artist) {
-		
-		
 		Optional<Artist> optionalArtist = this.findById(id);
-		
 		if(optionalArtist.isPresent()) {
-			
-			Artist artistToUpdate = optionalArtist.get(); 
-			artistToUpdate.setName(artist.getName());
-			if (artist.getBio() != null)
-				artistToUpdate.setBio(artist.getBio());
-			if (artist.getFanNumber() != null)
-				artistToUpdate.setFanNumber(artist.getFanNumber());
-			return repository.save(artistToUpdate);
+			return repository.save(artist);
 		}
-		
 		return null;
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.simplon.jukebox.model.Album;
 import co.simplon.jukebox.model.Track;
 import co.simplon.jukebox.repository.TrackRepository;
 
@@ -36,20 +37,10 @@ public class TrackServiceImpl implements TrackService {
 	
 	@Override
 	public Track update(Long id, Track track) {
-		
-		
 		Optional<Track> optionalTrack = this.findById(id);
-		
 		if(optionalTrack.isPresent()) {
-			
-			Track trackToUpdate = optionalTrack.get(); 
-			trackToUpdate.setTitle(track.getTitle());
-			trackToUpdate.setDuration(track.getDuration());
-			if (trackToUpdate.getPreview() != null)
-				trackToUpdate.setPreview(track.getPreview());
-			return repository.save(trackToUpdate);
+			return repository.save(track);
 		}
-		
 		return null;
 	}
 	

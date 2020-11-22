@@ -36,19 +36,10 @@ public class AlbumServiceImpl implements AlbumService {
 	
 	@Override
 	public Album update(Long id, Album album) {
-		
-		
 		Optional<Album> optionalAlbum = this.findById(id);
-		
 		if(optionalAlbum.isPresent()) {
-			
-			Album albumToUpdate = optionalAlbum.get(); 
-			albumToUpdate.setTitle(album.getTitle());
-			if (album.getReleasedate() != null)
-				albumToUpdate.setReleasedate(album.getReleasedate());
-			return repository.save(albumToUpdate);
+			return repository.save(album);
 		}
-		
 		return null;
 	}
 	
