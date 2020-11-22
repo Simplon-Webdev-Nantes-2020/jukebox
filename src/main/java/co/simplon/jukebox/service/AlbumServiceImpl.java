@@ -11,7 +11,7 @@ import co.simplon.jukebox.repository.AlbumRepository;
 
 
 @Service
-public class AlmbumServiceImpl implements AlbumService {
+public class AlbumServiceImpl implements AlbumService {
 
 	@Autowired
 	private AlbumRepository repository;
@@ -19,7 +19,7 @@ public class AlmbumServiceImpl implements AlbumService {
 	@Override
 	public List<Album> findAll(String search) {
 		if (! "".equals(search))
-			return repository.findByTitleContaining(search);
+			return repository.findByTitleIgnoreCaseContaining(search);
 		else
 			return repository.findAll();
 	}

@@ -9,5 +9,5 @@ import co.simplon.jukebox.model.Album;
 
 public interface AlbumRepository extends JpaRepository<Album, Long>{
 
-	public List<Album> findByTitleContaining(String title) ;
+	public List<Album> findByTitleIgnoreCaseContaining(String title) ;
 }
