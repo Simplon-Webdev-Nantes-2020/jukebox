@@ -1,10 +1,14 @@
 package co.simplon.jukebox.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -27,6 +31,10 @@ public class Track {
 	@ManyToOne @JoinColumn(name="albumId")
 	@JsonBackReference
 	private Album album;
+	
+	@ManyToMany(mappedBy = "tracks", cascade = CascadeType.REMOVE)
+	@JsonBackReference
+	private List<Playlist> playlists;
 
 	public long getId() {
 		return id;

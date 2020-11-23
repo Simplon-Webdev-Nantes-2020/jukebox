@@ -26,7 +26,15 @@ CREATE TABLE track (
     foreign key (album_id) references album(id)
 );
 
-CREATE TABLE play_list (
+CREATE TABLE playlist (
     id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE playlist_track (
+    playlist_id   INT,
+    track_id   INT,
+    primary key (playlist_id, track_id),
+    foreign key (playlist_id) references playlist(id),
+    foreign key (track_id) references track(id)
 );

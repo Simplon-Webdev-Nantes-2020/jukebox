@@ -80,8 +80,17 @@ insert into track(id, album_id, title, duration, preview)
 	values (24, 3, 'Moorlough Shore', 245, 'https://cdns-preview-e.dzcdn.net/stream/c-eb8433459094c30847866d7042ec91e6-6.mp3');
 	
 /* playlist */
-insert into play_list(id, name)
+insert into playlist(id, name)
     values(1,'celtic');
-insert into play_list(id, name)
+insert into playlist(id, name)
     values(2,'gitan');
-    
+insert into playlist_track(playlist_id, track_id)
+    values(1,22);
+insert into playlist_track(playlist_id, track_id)
+    values(1,24);
+insert into playlist_track(playlist_id, track_id)
+    values(1,20);
+insert into playlist_track(playlist_id, track_id)
+    values(2,4);
+insert into playlist_track(playlist_id, track_id)
+    values(2,6);    

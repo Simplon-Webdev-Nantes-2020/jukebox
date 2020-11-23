@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.simplon.jukebox.model.PlayList;
+import co.simplon.jukebox.model.Playlist;
 
 
-public interface PlayListRepository extends JpaRepository<PlayList, Long>{
+public interface PlaylistRepository extends JpaRepository<Playlist, Long>{
 
-	public List<PlayList> findByNameIgnoreCaseContaining(String name) ;
+	public List<Playlist> findByNameIgnoreCaseContaining(String name) ;
 }

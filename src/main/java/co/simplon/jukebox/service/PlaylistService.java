@@ -3,14 +3,14 @@ package co.simplon.jukebox.service;
 import java.util.List;
 import java.util.Optional;
 
-import co.simplon.jukebox.model.PlayList;
+import co.simplon.jukebox.model.Playlist;
 
 
-public interface PlayListService {
+public interface PlaylistService {
 
-	Optional<PlayList> findById(Long id);
-	List<PlayList> findAll(String search);
-	PlayList insert(PlayList PlayList);
-	PlayList update(Long id, PlayList PlayList);
+	Optional<Playlist> findById(Long id);
+	List<Playlist> findAll(String search);
+	Playlist insert(Playlist PlayList);
+	Playlist update(Long id, Playlist PlayList);
 	void delete(Long id);
 }

@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
-import co.simplon.jukebox.model.PlayList;
-import co.simplon.jukebox.service.PlayListService;
+import co.simplon.jukebox.model.Playlist;
+import co.simplon.jukebox.service.PlaylistService;
 
 @RestController
 @RequestMapping("/jukebox")
-public class PlayListController {
+public class PlaylistController {
 
 	@Autowired
-	PlayListService service;
+	PlaylistService service;
 	
 	/**
 	 * Liste des PlayListes
@@ -34,8 +34,8 @@ public class PlayListController {
 	 */
 	@CrossOrigin
 	@GetMapping("/playlists")
-	public ResponseEntity<List<PlayList>> getAllPlayList(@RequestParam(value="search", defaultValue="") String search) {
-		List<PlayList> listPlayList;
+	public ResponseEntity<List<Playlist>> getAllPlayList(@RequestParam(value="search", defaultValue="") String search) {
+		List<Playlist> listPlayList;
 		try {
 			listPlayList = service.findAll(search);
 		} catch (Exception e) {
@@ -51,8 +51,8 @@ public class PlayListController {
 	 */
 	@CrossOrigin
 	@GetMapping("/playlists/{id}")
-	ResponseEntity<PlayList> getPlayListById(@PathVariable(value="id") long id) {
-		Optional<PlayList> PlayList = service.findById(id);
+	ResponseEntity<Playlist> getPlayListById(@PathVariable(value="id") long id) {
+		Optional<Playlist> PlayList = service.findById(id);
 		if (PlayList.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -66,14 +66,14 @@ public class PlayListController {
 	 */
 	@CrossOrigin
 	@PostMapping("/playlists")
-	ResponseEntity<PlayList> addPlayList(@Valid @RequestBody PlayList PlayList){
+	ResponseEntity<Playlist> addPlayList(@Valid @RequestBody Playlist PlayList){
 		return ResponseEntity.ok().body(service.insert(PlayList));
 	}
 	
 	@CrossOrigin
 	@PutMapping("/playlists/{id}")
-	ResponseEntity<PlayList> updatePlayList(@PathVariable(value="id") long id, @Valid @RequestBody PlayList PlayList){
-		PlayList updatedPlayListe = service.update(id, PlayList);
+	ResponseEntity<Playlist> updatePlayList(@PathVariable(value="id") long id, @Valid @RequestBody Playlist PlayList){
+		Playlist updatedPlayListe = service.update(id, PlayList);
 		if(updatedPlayListe == null)
 			return ResponseEntity.notFound().build();
 		
@@ -82,8 +82,8 @@ public class PlayListController {
 
 	@CrossOrigin
 	@DeleteMapping("/playlists/{id}")
-	ResponseEntity<PlayList> deletePlayList(@PathVariable(value="id") long id){
-		Optional<PlayList> PlayList = service.findById(id);
+	ResponseEntity<Playlist> deletePlayList(@PathVariable(value="id") long id){
+		Optional<Playlist> PlayList = service.findById(id);
 		if(PlayList.isEmpty())
 			return ResponseEntity.notFound().build();
 		
