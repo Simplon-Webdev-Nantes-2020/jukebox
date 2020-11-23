@@ -79,3 +79,9 @@ insert into track(id, album_id, title, duration, preview)
 insert into track(id, album_id, title, duration, preview)
 	values (24, 3, 'Moorlough Shore', 245, 'https://cdns-preview-e.dzcdn.net/stream/c-eb8433459094c30847866d7042ec91e6-6.mp3');
 	
+/* playlist */
+insert into play_list(id, name)
+    values(1,'celtic');
+insert into play_list(id, name)
+    values(2,'gitan');
+    
