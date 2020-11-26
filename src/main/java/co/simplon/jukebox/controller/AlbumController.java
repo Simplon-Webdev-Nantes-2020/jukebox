@@ -24,7 +24,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/jukebox")
-public class AlbumController {
+public class AlbumController extends AppController {
 
 	@Autowired
 	AlbumService service;

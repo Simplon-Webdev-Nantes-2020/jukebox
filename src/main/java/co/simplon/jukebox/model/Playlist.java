@@ -2,7 +2,6 @@ package co.simplon.jukebox.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Playlist {
@@ -24,13 +21,12 @@ public class Playlist {
 	@NotBlank(message = "Name can't be empty")
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany
 	@JoinTable(
 			name = "playlist_track",
 			joinColumns = @JoinColumn(name = "playlist_id"),
 			inverseJoinColumns = @JoinColumn(name = "track_id")
 			  )
-	@JsonManagedReference
 	List<Track> tracks;
 
 	public long getId() {
@@ -49,4 +45,13 @@ public class Playlist {
 		this.name = name;
 	}
 
+	public List<Track> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(List<Track> tracks) {
+		this.tracks = tracks;
+	}
+
+	
 }

@@ -22,7 +22,7 @@ import co.simplon.jukebox.service.ArtistService;
 
 @RestController
 @RequestMapping("/jukebox")
-public class ArtistController {
+public class ArtistController extends AppController {
 
 	@Autowired
 	ArtistService service;

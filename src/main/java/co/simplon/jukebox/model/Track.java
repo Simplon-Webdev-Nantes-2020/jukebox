@@ -2,7 +2,6 @@ package co.simplon.jukebox.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Track {
@@ -32,8 +32,8 @@ public class Track {
 	@JsonBackReference
 	private Album album;
 	
-	@ManyToMany(mappedBy = "tracks", cascade = CascadeType.REMOVE)
-	@JsonBackReference
+	@ManyToMany(mappedBy = "tracks")
+	@JsonIgnore
 	private List<Playlist> playlists;
 
 	public long getId() {
@@ -68,4 +68,21 @@ public class Track {
 		this.preview = preview;
 	}
 
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
+	}
+
+	
 }
