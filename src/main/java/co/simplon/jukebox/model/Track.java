@@ -28,7 +28,7 @@ public class Track {
 	
 	private String preview;
 	
-	@ManyToOne @JoinColumn(name="albumId")
+	@ManyToOne @JoinColumn(name="album_id")
 	@JsonBackReference
 	private Album album;
 	

@@ -14,9 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 public class Album {
@@ -30,8 +30,9 @@ public class Album {
 
 	private LocalDate releaseDate;
 	
-	@ManyToOne @JoinColumn(name = "artistId")
-	@JsonBackReference
+	@ManyToOne @JoinColumn(name = "artist_id")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+//	@JsonManagedReference
 	private Artist artist;
 	
 	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
@@ -62,4 +63,29 @@ public class Album {
 		this.releaseDate = releaseDate;
 	}
 
+	public LocalDate getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(LocalDate releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
+	public List<Track> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(List<Track> tracks) {
+		this.tracks = tracks;
+	}
+
+	
 }

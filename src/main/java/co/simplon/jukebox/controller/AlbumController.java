@@ -62,6 +62,23 @@ public class AlbumController extends AppController {
 	}
 	
 	/**
+	 * Liste des albums
+	 * @param search : critère de recherche
+	 * @return liste des albums
+	 */
+	@CrossOrigin
+	@GetMapping("/artists/{id}/albums")
+	public ResponseEntity<List<Album>> getAllAlbum(@PathVariable(value="id") long id) {
+		List<Album> listAlbum;
+		try {
+			listAlbum = service.findByArtist(id);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(listAlbum);
+	}
+
+	/**
 	 * creation d'un album
 	 * @param album
 	 * @return
