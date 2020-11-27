@@ -1191,12 +1191,18 @@
 									"    pm.expect(jsonData.id).greaterThan(0);\r",
 									"});\r",
 									"\r",
-									"if (pm.environment.get(\"album_id\") == 2)\r",
+									"if (pm.environment.get(\"album_id\") == 2) {\r",
 									"    pm.test(\"test values\", function () {\r",
 									"        var jsonData = pm.response.json();\r",
 									"        pm.expect(jsonData.id).eql(2);\r",
 									"        pm.expect(jsonData.title).eql('Le Meilleur de la Musique Irlandaise - Les Plus Beaux Airs Celtiques');\r",
 									"    });\r",
+									"\r",
+									"    pm.test(\"test values\", function () {\r",
+									"        var jsonData = pm.response.json();\r",
+									"        pm.expect(jsonData.tracks.length).eql(3);\r",
+									"    });\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3426,13 +3432,14 @@
 									"    pm.expect(jsonData.id).greaterThan(0);\r",
 									"});\r",
 									"\r",
-									"if (pm.environment.get(\"playlist_id\") == 1)\r",
+									"if (pm.environment.get(\"playlist_id\") == 1) {\r",
 									"    pm.test(\"test values\", function () {\r",
 									"        var jsonData = pm.response.json();\r",
 									"        pm.expect(jsonData.id).eql(1);\r",
 									"        pm.expect(jsonData.name).eql('celtic');\r",
+									"        pm.expect(jsonData.tracks.length).eql(3);\r",
 									"    });\r",
-									""
+									"}"
 								],
 								"type": "text/javascript"
 							}
