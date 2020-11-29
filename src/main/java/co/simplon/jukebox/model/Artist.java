@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -19,10 +21,12 @@ public class Artist {
 	private long id;
 
 	@NotBlank(message = "Name can't be empty")
+	@Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
 	private String name;
 
 	private String bio;
 
+	@PositiveOrZero(message = "fan number must be positive")
 	private Integer fanNumber;
 	
 	@OneToMany(mappedBy = "artist")

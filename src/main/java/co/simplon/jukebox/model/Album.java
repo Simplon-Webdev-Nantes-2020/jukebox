@@ -12,7 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -28,6 +30,7 @@ public class Album {
 	@NotBlank(message = "Name can't be empty")
 	private String title;
 
+	@PastOrPresent(message = "release date must be past")
 	private LocalDate releaseDate;
 	
 	@ManyToOne @JoinColumn(name = "artist_id")
@@ -35,6 +38,7 @@ public class Album {
 //	@JsonManagedReference
 	private Artist artist;
 	
+	@Valid
 	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private List<Track> tracks;

@@ -21,7 +21,7 @@ public class Track {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotBlank(message = "Name can't be empty")
+	@NotBlank(message = "Title can't be empty")
 	private String title;
 
 	private int duration;
