@@ -112,13 +112,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/artists?search=tic",
+							"raw":"{{base_url}}/artists?search=tic",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"artists"
 							],
 							"query": [
@@ -684,13 +682,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/artists/{{new_artist_id}}",
+							"raw":"{{base_url}}/artists/{{new_artist_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"artists",
 								"{{new_artist_id}}"
 							]
@@ -1157,13 +1153,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/albums",
+							"raw":"{{base_url}}/albums",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums"
 							]
 						}
@@ -1213,13 +1207,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/albums/{{album_id}}",
+							"raw":"{{base_url}}/albums/{{album_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums",
 								"{{album_id}}"
 							]
@@ -1233,13 +1225,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/albums?search=LA",
+							"raw":"{{base_url}}/albums?search=LA",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums"
 							],
 							"query": [
@@ -1311,13 +1301,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/albums",
+							"raw":"{{base_url}}/albums",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums"
 							]
 						}
@@ -1786,13 +1774,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/albums/{{new_album_id}}",
+							"raw":"{{base_url}}/albums/{{new_album_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums",
 								"{{new_album_id}}"
 							]
@@ -2235,13 +2221,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/albums/{{new_album_id}}",
+							"raw":"{{base_url}}/albums/{{new_album_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"albums",
 								"{{new_album_id}}"
 							]
@@ -2283,13 +2267,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks",
+							"raw":"{{base_url}}/tracks",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks"
 							]
 						}
@@ -2332,13 +2314,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks/{{track_id}}",
+							"raw":"{{base_url}}/tracks/{{track_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks",
 								"{{track_id}}"
 							]
@@ -2352,13 +2332,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks?search=l",
+							"raw":"{{base_url}}/tracks?search=l",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks"
 							],
 							"query": [
@@ -2428,13 +2406,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks",
+							"raw":"{{base_url}}/tracks",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks"
 							]
 						}
@@ -2903,13 +2879,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks/{{new_track_id}}",
+							"raw":"{{base_url}}/tracks/{{new_track_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks",
 								"{{new_track_id}}"
 							]
@@ -3352,13 +3326,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/tracks/{{new_track_id}}",
+							"raw":"{{base_url}}/tracks/{{new_track_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"tracks",
 								"{{new_track_id}}"
 							]
@@ -3400,13 +3372,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists",
+							"raw":"{{base_url}}/playlists",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists"
 							]
 						}
@@ -3449,13 +3419,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists/{{playlist_id}}",
+							"raw":"{{base_url}}/playlists/{{playlist_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists",
 								"{{playlist_id}}"
 							]
@@ -3469,13 +3437,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists?search=tic",
+							"raw":"{{base_url}}/playlists?search=tic",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists"
 							],
 							"query": [
@@ -3543,13 +3509,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists",
+							"raw":"{{base_url}}/playlists",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists"
 							]
 						}
@@ -4018,13 +3982,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists/{{new_playlist_id}}",
+							"raw":"{{base_url}}/playlists/{{new_playlist_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists",
 								"{{new_playlist_id}}"
 							]
@@ -4467,13 +4429,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/jukebox/playlists/{{new_playlist_id}}",
+							"raw":"{{base_url}}/playlists/{{new_playlist_id}}",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"jukebox",
 								"playlists",
 								"{{new_playlist_id}}"
 							]
