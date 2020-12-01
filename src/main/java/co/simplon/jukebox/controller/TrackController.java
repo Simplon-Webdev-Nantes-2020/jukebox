@@ -26,7 +26,7 @@ import co.simplon.jukebox.service.TrackService;
 
 @RestController
 @RequestMapping("/jukebox")
-public class TrackController extends AppController{
+public class TrackController {
 
 	@Autowired
 	TrackService service;
