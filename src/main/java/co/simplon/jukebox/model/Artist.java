@@ -2,6 +2,7 @@ package co.simplon.jukebox.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Artist {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(unique = true)
 	@NotBlank(message = "Name can't be empty")
 	@Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
 	private String name;

@@ -4,7 +4,7 @@ use JUKEBOX_SCHEMA;
 
 CREATE TABLE artist (
     id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL UNIQUE,
     bio VARCHAR(255),
     fan_number INTEGER
 );
@@ -23,7 +23,8 @@ CREATE TABLE track (
     duration INTEGER,
     preview VARCHAR(200),
     album_id INT,
-    foreign key (album_id) references album(id)
+    foreign key (album_id) references album(id),
+    constraint uc_title unique (title, album_id)
 );
 
 CREATE TABLE playlist (
