@@ -19,7 +19,8 @@ public class ExceptionAdvice {
 
 	/**
 	 * message d'erreurs donnees invalides
-	 * @param e
+	 * @param e : exception
+	 * @param request : la requete qui est en erreur
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -36,7 +37,8 @@ public class ExceptionAdvice {
 
 	/**
 	 * message d'erreur contrainte d'unicite
-	 * @param e
+	 * @param e : exception 
+	 * @param request : la requete qui est en erreur
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -47,9 +49,10 @@ public class ExceptionAdvice {
 	
 	/**
 	 * mise en forme du message retourne
-	 * @param status
-	 * @param error
-	 * @param errors
+	 * @param request : la requete qui est en erreur
+	 * @param status : status de retour de la requete
+	 * @param error : type d'erreur
+	 * @param errors : message d'erreur
 	 * @return
 	 */
 	private Map<String, Object> mapMessage(HttpServletRequest request, HttpStatus status, String error, Object errors) {
@@ -61,7 +64,4 @@ public class ExceptionAdvice {
         response.put("path", request.getRequestURI().toString());
         return response;
 	}
-	
-	
-
 }
