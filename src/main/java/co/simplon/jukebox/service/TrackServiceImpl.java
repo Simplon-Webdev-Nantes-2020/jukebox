@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.simplon.jukebox.common.AppException;
 import co.simplon.jukebox.model.Track;
 import co.simplon.jukebox.repository.TrackRepository;
 
@@ -47,6 +48,10 @@ public class TrackServiceImpl implements TrackService {
 	public void delete(Long id) {
 		Optional<Track> track = this.findById(id);
 		if (track.isPresent()) {
+			
+			// verification que le track n'est pas dans une playlist
+			if (!track.get().getPlaylists().isEmpty())
+				throw new AppException("Invalid Delete", "Track in playlist");
 			repository.delete(track.get());
 		}
 	}

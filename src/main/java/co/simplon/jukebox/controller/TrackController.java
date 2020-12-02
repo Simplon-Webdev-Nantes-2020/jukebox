@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import co.simplon.jukebox.model.Track;
 import co.simplon.jukebox.service.TrackService;
@@ -90,9 +88,6 @@ public class TrackController {
 		Optional<Track> track = service.findById(id);
 		if(track.isEmpty())
 			return ResponseEntity.notFound().build();
-		
-		if (!track.get().getPlaylists().isEmpty())
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Track in playlist");
 		
 		service.delete(track.get().getId());
 		return ResponseEntity.accepted().build();

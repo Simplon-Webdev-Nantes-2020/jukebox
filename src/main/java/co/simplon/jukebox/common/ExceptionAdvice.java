@@ -48,6 +48,19 @@ public class ExceptionAdvice {
 	}
 	
 	/**
+	 * message d'erreur applicative
+	 * @param e : exception
+	 * @param request : la requete qui est en erreur
+	 * @return
+	 */
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AppException.class)
+    public Map<String, Object> handleDataIntegrityExceptions(AppException e, HttpServletRequest request) {
+    	return mapMessage(request, HttpStatus.FORBIDDEN,e.getCategory(), e.getMessage());
+	}
+
+	
+	/**
 	 * mise en forme du message retourne
 	 * @param request : la requete qui est en erreur
 	 * @param status : status de retour de la requete
