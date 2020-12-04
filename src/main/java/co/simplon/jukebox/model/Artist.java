@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name="ARTIST")
 public class Artist {
 
 	@Id
@@ -34,6 +36,18 @@ public class Artist {
 	@OneToMany(mappedBy = "artist")
 	@JsonBackReference
 	private List<Album> albums;
+
+	
+	public Artist() {
+		super();
+	}
+
+	public Artist(String name, String bio, Integer fanNumber) {
+		super();
+		this.name = name;
+		this.bio = bio;
+		this.fanNumber = fanNumber;
+	}
 
 	public long getId() {
 		return id;

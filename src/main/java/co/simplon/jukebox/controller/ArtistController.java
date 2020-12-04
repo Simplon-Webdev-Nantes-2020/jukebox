@@ -37,10 +37,7 @@ public class ArtistController {
 	@CrossOrigin
 	@GetMapping("/artists/hello")
 	ResponseEntity<Artist> getArtistToto() {
-		Artist hello = new Artist();
-		hello.setName("Hello");
-		hello.setBio("Comment allez-vous ?");
-		hello.setFanNumber(100);
+		Artist hello = new Artist("Hello","Comment allez-vous ?",100);
 		return ResponseEntity.ok().body(hello);
 	}
 
