@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="ARTIST")
 public class Artist {
 
 	@Id

@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -35,7 +36,7 @@ public class Album {
 	
 	@ManyToOne @JoinColumn(name = "artist_id")
 	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-//	@JsonManagedReference
+	@JsonIdentityReference(alwaysAsId = true)
 	private Artist artist;
 	
 	@Valid
@@ -57,14 +58,6 @@ public class Album {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public LocalDate getReleasedate() {
-		return releaseDate;
-	}
-
-	public void setReleasedate(LocalDate releaseDate) {
-		this.releaseDate = releaseDate;
 	}
 
 	public LocalDate getReleaseDate() {
