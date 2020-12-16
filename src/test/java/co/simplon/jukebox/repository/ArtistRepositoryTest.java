@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import co.simplon.jukebox.model.Artist;
 
@@ -25,12 +25,16 @@ public class ArtistRepositoryTest {
     
     @Test
     public void findByNameContainingTest( ) {
+    	//given
     	Artist artistJulian = new Artist("Julian","my bio",120);
     	entityManager.persist(artistJulian);
     	Artist artistMary = new Artist("Mary","my bio",140);
     	entityManager.persist(artistMary);
-    	
+
+    	//when
     	List<Artist> artistSelect = repository.findByNameContaining("ul");
-    	assertEquals(1, artistSelect.size());
+
+    	//then
+    	assertThat(artistSelect.size()).isEqualTo(1);
     }
 }
