@@ -51,7 +51,7 @@ public class TrackServiceImpl implements TrackService {
 			
 			// verification que le track n'est pas dans une playlist
 			if (!track.get().getPlaylists().isEmpty())
-				throw new AppException("Invalid Delete", "Track in playlist");
+				throw new AppException("Invalid Delete, track in use", "Track in playlist");
 			repository.delete(track.get());
 		}
 	}
