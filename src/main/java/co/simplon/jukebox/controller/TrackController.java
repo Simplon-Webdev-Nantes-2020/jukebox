@@ -3,6 +3,7 @@ package co.simplon.jukebox.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,12 +68,14 @@ public class TrackController {
 	 * @return
 	 */
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PostMapping("/tracks")
 	ResponseEntity<Track> addTrack(@Valid @RequestBody Track track){
 		return ResponseEntity.ok().body(service.insert(track));
 	}
 	
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PutMapping("/tracks/{id}")
 	ResponseEntity<Track> updateTrack(@PathVariable(value="id") long id, @Valid @RequestBody Track track){
 		Track updatedTrack = service.update(id, track);
@@ -83,6 +86,7 @@ public class TrackController {
 	}
 
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@DeleteMapping("/tracks/{id}")
 	ResponseEntity<Track> deleteTrack(@PathVariable(value="id") long id){
 		Optional<Track> track = service.findById(id);

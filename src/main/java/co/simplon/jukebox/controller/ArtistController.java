@@ -3,6 +3,7 @@ package co.simplon.jukebox.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,6 @@ public class ArtistController {
 	@Autowired
 	ArtistService service;
 	
-	/**
-	 * Test si serveur opérationnel
-	 * Ce mapping existe uniquement pour la formation
-	 * Sur un serveur de production, cela n'a pas lieu dêtre
-	 * @return
-	 */
-	@CrossOrigin
-	@GetMapping("/artists/hello")
-	ResponseEntity<Artist> getArtistToto() {
-		Artist hello = new Artist("Hello","Comment allez-vous ?",100);
-		return ResponseEntity.ok().body(hello);
-	}
-
 	/**
 	 * Liste des artistes
 	 * @param search : critère de recherche
@@ -79,12 +67,14 @@ public class ArtistController {
 	 * @return
 	 */
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PostMapping("/artists")
 	ResponseEntity<Artist> addArtist(@Valid @RequestBody Artist artist){
 		return ResponseEntity.ok().body(service.insert(artist));
 	}
 	
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PutMapping("/artists/{id}")
 	ResponseEntity<Artist> updateArtist(@PathVariable(value="id") long id, @Valid @RequestBody Artist artist){
 		Artist updatedArtiste = service.update(id, artist);
@@ -95,6 +85,7 @@ public class ArtistController {
 	}
 
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@DeleteMapping("/artists/{id}")
 	ResponseEntity<Artist> deleteArtist(@PathVariable(value="id") long id){
 		Optional<Artist> artist = service.findById(id);

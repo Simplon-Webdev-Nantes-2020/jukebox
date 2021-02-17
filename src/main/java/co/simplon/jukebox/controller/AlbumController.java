@@ -1,25 +1,15 @@
 package co.simplon.jukebox.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import co.simplon.jukebox.model.Album;
 import co.simplon.jukebox.service.AlbumService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -62,8 +52,7 @@ public class AlbumController {
 	}
 	
 	/**
-	 * Liste des albums
-	 * @param search : critère de recherche
+	 * liste des albums d'un artist
 	 * @return liste des albums
 	 */
 	@CrossOrigin
@@ -84,12 +73,14 @@ public class AlbumController {
 	 * @return
 	 */
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PostMapping("/albums")
 	ResponseEntity<Album> addAlbum(@Valid @RequestBody Album album){
 		return ResponseEntity.ok().body(service.insert(album));
 	}
 	
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@PutMapping("/albums/{id}")
 	ResponseEntity<Album> updateAlbum(@PathVariable(value="id") long id, @Valid @RequestBody Album album){
 		Album updatedAlbum = service.update(id, album);
@@ -100,6 +91,7 @@ public class AlbumController {
 	}
 
 	@CrossOrigin
+	@RolesAllowed({"MANAGER"})
 	@DeleteMapping("/albums/{id}")
 	ResponseEntity<Album> deleteAlbum(@PathVariable(value="id") long id){
 		Optional<Album> album = service.findById(id);
