@@ -86,7 +86,7 @@ public class TrackController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@RolesAllowed({"ADMIN"})
 	@DeleteMapping("/tracks/{id}")
 	ResponseEntity<Track> deleteTrack(@PathVariable(value="id") long id){
 		Optional<Track> track = service.findById(id);

@@ -85,7 +85,7 @@ public class ArtistController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@RolesAllowed({"ADMIN"})
 	@DeleteMapping("/artists/{id}")
 	ResponseEntity<Artist> deleteArtist(@PathVariable(value="id") long id){
 		Optional<Artist> artist = service.findById(id);

@@ -3,6 +3,7 @@ package co.simplon.jukebox.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class PlaylistController {
 	}
 
 	@CrossOrigin
+	@RolesAllowed({"ADMIN"})
 	@DeleteMapping("/playlists/{id}")
 	ResponseEntity<Playlist> deletePlayList(@PathVariable(value="id") long id){
 		Optional<Playlist> PlayList = service.findById(id);

@@ -91,7 +91,7 @@ public class AlbumController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@RolesAllowed({"ADMIN"})
 	@DeleteMapping("/albums/{id}")
 	ResponseEntity<Album> deleteAlbum(@PathVariable(value="id") long id){
 		Optional<Album> album = service.findById(id);
