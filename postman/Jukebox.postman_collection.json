@@ -6,6 +6,207 @@
 	},
 	"item": [
 		{
+			"name": "login",
+			"item": [
+				{
+					"name": "home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "page login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const $ = cheerio.load(responseBody)\r",
+									"\r",
+									"pm.test(\"it should return a csrf\", () => { \r",
+									"    const csrf_value = $(\"input[name='_csrf']\").val();\r",
+									"    pm.expect(csrf_value).to.not.be.empty;\r",
+									"    pm.environment.set(\"csrf_value\", csrf_value);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "page logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const $ = cheerio.load(responseBody)\r",
+									"\r",
+									"pm.test(\"it should return a csrf\", () => { \r",
+									"    const csrf_value = $(\"input[name='_csrf']\").val();\r",
+									"    pm.expect(csrf_value).to.not.be.empty;\r",
+									"    pm.environment.set(\"csrf_value\", csrf_value);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/logout",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login manu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "manu",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "manu",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login toto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "toto",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "toto",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "artist",
 			"item": [
 				{
@@ -14,7 +215,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6f2f343e-52da-4f4a-8e89-d5beedbec28f",
 								"exec": [
 									""
 								],
@@ -43,7 +243,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a8c23f0d-f078-4bd7-897b-5e93fae0ac2a",
 								"exec": [
 									"pm.test(\"response json should contain one collection\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property('id');\r",
@@ -135,7 +334,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9c70ca3f-5ed1-4ad6-9883-2da5cfd66cc3",
 								"exec": [
 									"// maj du nouvel artist dans l'environnement",
 									"var jsonData = JSON.parse(responseBody);",
@@ -189,10 +387,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"name\": \"AC/DC\",\n    \"bio\": \"La famille Young quitte Glasgow en Ecosse et émigre à Sydney en Australie en 1963. Le fils cadet de sept frères George, guitariste et auteur compositeur y fonde The Easybeats avec le Hollandais Harry Vanda....\",\n    \"fanNumber\": 7252046\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 0,\n    \"name\": \"AC/DC\",\n    \"bio\": \"La famille Young quitte Glasgow en Ecosse et émigre à Sydney en Australie en 1963. Le fils cadet de sept frères George, guitariste et auteur compositeur y fonde The Easybeats avec le Hollandais Harry Vanda....\",\n    \"fanNumber\": 7252046\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/artists",
@@ -641,7 +836,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f278ab4a-2d41-44fb-919f-3dd9f180f71e",
 								"exec": [
 									"pm.test(\"response is ok\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -676,10 +870,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": {{new_artist_id}},\n    \"name\": \"AC/DC\",\n    \"bio\": \"La famille Young quitte Glasgow en Ecosse et émigre à Sydney en Australie en 1963. Le fils cadet de sept frères George, guitariste et auteur compositeur y fonde The Easybeats avec le Hollandais Harry Vanda....\",\n    \"fanNumber\": 7252050\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": {{new_artist_id}},\n    \"name\": \"AC/DC\",\n    \"bio\": \"La famille Young quitte Glasgow en Ecosse et émigre à Sydney en Australie en 1963. Le fils cadet de sept frères George, guitariste et auteur compositeur y fonde The Easybeats avec le Hollandais Harry Vanda....\",\n    \"fanNumber\": 7252050\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/artists/{{new_artist_id}}",
@@ -1141,8 +1332,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "album",
@@ -1170,7 +1360,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f6d0da0b-7f19-4603-aebd-a3d8d8cb5f1d",
 								"exec": [
 									"pm.test(\"response json should contain one collection\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property('id');\r",
@@ -1248,7 +1437,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9a196910-a090-4867-b001-c9e7251ae0e0",
 								"exec": [
 									"// maj du nouvel album dans l'environnement",
 									"var jsonData = JSON.parse(responseBody);",
@@ -1291,14 +1479,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf_value}}",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"title\": \"PYRAMIDE (Version deluxe)\",\n    \"releaseDate\": \"2019-11-08\",\n    \"artist\": {\n        \"id\": 2\n    },\n    \"tracks\": [\n        {\n            \"id\": 0,\n            \"title\": \"Pyramide\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-a.dzcdn.net/stream/c-a42bafb687f3c4b4cb6cfc96e620887d-7.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Les planètes\",\n            \"duration\": 232,\n            \"preview\": \"https://cdns-preview-6.dzcdn.net/stream/c-6d86ef7c721648224a10cf5f20ec37e3-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Ouh na na\",\n            \"duration\": 182,\n            \"preview\": \"https://cdns-preview-c.dzcdn.net/stream/c-caa0bd02fd2f4f9221ebaff32e67cfe1-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Seul\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-0.dzcdn.net/stream/c-0c201c858167dae678c4330641127244-6.mp3\"\n        }\n    ]\n}\n",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 0,\n    \"title\": \"PYRAMIDE (Version deluxe)\",\n    \"releaseDate\": \"2019-11-08\",\n    \"artist\": {\n        \"id\": 2\n    },\n    \"tracks\": [\n        {\n            \"id\": 0,\n            \"title\": \"Pyramide\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-a.dzcdn.net/stream/c-a42bafb687f3c4b4cb6cfc96e620887d-7.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Les planètes\",\n            \"duration\": 232,\n            \"preview\": \"https://cdns-preview-6.dzcdn.net/stream/c-6d86ef7c721648224a10cf5f20ec37e3-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Ouh na na\",\n            \"duration\": 182,\n            \"preview\": \"https://cdns-preview-c.dzcdn.net/stream/c-caa0bd02fd2f4f9221ebaff32e67cfe1-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"Seul\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-0.dzcdn.net/stream/c-0c201c858167dae678c4330641127244-6.mp3\"\n        }\n    ]\n}\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/albums",
@@ -1747,7 +1937,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2c8c8f8c-a74a-449c-8323-c73079d3d59d",
 								"exec": [
 									"pm.test(\"response is ok\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1768,10 +1957,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 4,\n    \"title\": \"PYRAMIDE (Version deluxe)\",\n    \"releasedate\": \"2020-11-03\",\n    \"artist\": {\n        \"id\": 2\n    },\n    \"tracks\": [\n        {\n            \"id\": 25,\n            \"title\": \"Pyramide\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-a.dzcdn.net/stream/c-a42bafb687f3c4b4cb6cfc96e620887d-7.mp3\"\n        },\n        {\n            \"id\": 27,\n            \"title\": \"Ouh na na\",\n            \"duration\": 182,\n            \"preview\": \"https://cdns-preview-c.dzcdn.net/stream/c-caa0bd02fd2f4f9221ebaff32e67cfe1-6.mp3\"\n        },\n        {\n            \"id\": 28,\n            \"title\": \"Seul\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-0.dzcdn.net/stream/c-0c201c858167dae678c4330641127244-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"La regarder s'en aller\",\n            \"duration\": 206,\n            \"preview\": \"https://cdns-preview-5.dzcdn.net/stream/c-5da53889aa1ff263f7df5b9a2504c2b8-7.mp3\"\n        }\n    ]\n}\n",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 4,\n    \"title\": \"PYRAMIDE (Version deluxe)\",\n    \"releasedate\": \"2020-11-03\",\n    \"artist\": {\n        \"id\": 2\n    },\n    \"tracks\": [\n        {\n            \"id\": 25,\n            \"title\": \"Pyramide\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-a.dzcdn.net/stream/c-a42bafb687f3c4b4cb6cfc96e620887d-7.mp3\"\n        },\n        {\n            \"id\": 27,\n            \"title\": \"Ouh na na\",\n            \"duration\": 182,\n            \"preview\": \"https://cdns-preview-c.dzcdn.net/stream/c-caa0bd02fd2f4f9221ebaff32e67cfe1-6.mp3\"\n        },\n        {\n            \"id\": 28,\n            \"title\": \"Seul\",\n            \"duration\": 175,\n            \"preview\": \"https://cdns-preview-0.dzcdn.net/stream/c-0c201c858167dae678c4330641127244-6.mp3\"\n        },\n        {\n            \"id\": 0,\n            \"title\": \"La regarder s'en aller\",\n            \"duration\": 206,\n            \"preview\": \"https://cdns-preview-5.dzcdn.net/stream/c-5da53889aa1ff263f7df5b9a2504c2b8-7.mp3\"\n        }\n    ]\n}\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/albums/{{new_album_id}}",
@@ -2238,7 +2424,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "2b328347-6873-417f-98b8-c57b2fecec52",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -2248,15 +2433,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ce41c877-4bb7-4677-bcc0-77c122380c11",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "track",
@@ -2284,7 +2467,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0139e9b3-7cfe-4ad8-a51c-e4b279555a2a",
 								"exec": [
 									"pm.test(\"response json should contain one collection\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property('id');\r",
@@ -2355,7 +2537,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bf61217f-1b56-49cd-b089-65260fc85f50",
 								"exec": [
 									"// maj du nouveau track dans l'environnement",
 									"var jsonData = JSON.parse(responseBody);",
@@ -2400,10 +2581,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"title\": \"Follow Me\",\n    \"duration\": 218,\n    \"preview\": \"https://cdns-preview-2.dzcdn.net/stream/c-25361eb4c1bbe04d9d4aee18722b6b55-6.mp3\",\n    \"album\": {\n        \"id\": 3\n    }\n}\n",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 0,\n    \"title\": \"Follow Me\",\n    \"duration\": 218,\n    \"preview\": \"https://cdns-preview-2.dzcdn.net/stream/c-25361eb4c1bbe04d9d4aee18722b6b55-6.mp3\",\n    \"album\": {\n        \"id\": 3\n    }\n}\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/tracks",
@@ -2852,7 +3030,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b555cde9-b840-4ab6-84e5-6a019deaab66",
 								"exec": [
 									"pm.test(\"response is ok\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2873,10 +3050,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"title\": \"Color gitano\",\n    \"duration\": 220,\n    \"preview\": \"https://cdns-preview-f.dzcdn.net/stream/c-f981754c689d1819ed89bacbf4d53f75-3.mp3\",\n    \"album\": {\n        \"id\": 3\n    }\n}\n",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 1,\n    \"title\": \"Color gitano\",\n    \"duration\": 220,\n    \"preview\": \"https://cdns-preview-f.dzcdn.net/stream/c-f981754c689d1819ed89bacbf4d53f75-3.mp3\",\n    \"album\": {\n        \"id\": 3\n    }\n}\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/tracks/{{new_track_id}}",
@@ -3343,7 +3517,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "7a28bf1d-4789-43f6-9d19-4891c97a6ab8",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -3353,15 +3526,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f08ebeb5-cdf8-4028-b05b-546f58385990",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "playlist",
@@ -3389,7 +3560,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "45166732-a98e-404a-b898-fd1090506f14",
 								"exec": [
 									"pm.test(\"response json should contain one collection\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property('id');\r",
@@ -3460,7 +3630,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c22193e3-4d0c-4722-ad28-e2288808f3ce",
 								"exec": [
 									"// maj de la nouvelle playlist dans l'environnement",
 									"var jsonData = JSON.parse(responseBody);",
@@ -3503,10 +3672,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"name\": \"travail\",\n    \"tracks\": [\n            {\n                \"id\": 20\n            },\n            {\n                \"id\": 14\n            },\n            {\n                \"id\": 3\n            },\n            {\n                \"id\": 23\n            }\n    ]\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 0,\n    \"name\": \"travail\",\n    \"tracks\": [\n            {\n                \"id\": 20\n            },\n            {\n                \"id\": 14\n            },\n            {\n                \"id\": 3\n            },\n            {\n                \"id\": 23\n            }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/playlists",
@@ -3955,7 +4121,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "088b543a-b48b-4be7-bdf4-18765eb03831",
 								"exec": [
 									"pm.test(\"response is ok\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -3976,10 +4141,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 3,\n    \"name\": \"travail à la maison\",\n    \"tracks\": [\n            {\n                \"id\": 20\n            },\n            {\n                \"id\": 3\n            },\n            {\n                \"id\": 23\n            }\n    ]\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"id\": 3,\n    \"name\": \"travail à la maison\",\n    \"tracks\": [\n            {\n                \"id\": 20\n            },\n            {\n                \"id\": 3\n            },\n            {\n                \"id\": 23\n            }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/playlists/{{new_playlist_id}}",
@@ -4441,15 +4603,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "2aa0855d-d4c7-4722-be60-1bd12bb55e03",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -4459,13 +4619,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a617787b-ab5d-4801-ab52-94ad9bb4ddeb",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

@@ -19,7 +19,6 @@ public class AdminController {
 	 * @return
 	 */
 	@CrossOrigin
-	@RolesAllowed("ADMIN")
 	@GetMapping("/hello")
 	ResponseEntity<String> helloWord() {
 		return ResponseEntity.ok().body("Hello World");

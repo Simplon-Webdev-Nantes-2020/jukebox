@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,14 +69,14 @@ public class TrackController {
 	 * @return
 	 */
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PostMapping("/tracks")
 	ResponseEntity<Track> addTrack(@Valid @RequestBody Track track){
 		return ResponseEntity.ok().body(service.insert(track));
 	}
 	
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PutMapping("/tracks/{id}")
 	ResponseEntity<Track> updateTrack(@PathVariable(value="id") long id, @Valid @RequestBody Track track){
 		Track updatedTrack = service.update(id, track);
@@ -86,7 +87,7 @@ public class TrackController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"ADMIN"})
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/tracks/{id}")
 	ResponseEntity<Track> deleteTrack(@PathVariable(value="id") long id){
 		Optional<Track> track = service.findById(id);

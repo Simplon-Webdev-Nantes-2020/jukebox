@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,14 +68,14 @@ public class ArtistController {
 	 * @return
 	 */
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PostMapping("/artists")
 	ResponseEntity<Artist> addArtist(@Valid @RequestBody Artist artist){
 		return ResponseEntity.ok().body(service.insert(artist));
 	}
 	
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PutMapping("/artists/{id}")
 	ResponseEntity<Artist> updateArtist(@PathVariable(value="id") long id, @Valid @RequestBody Artist artist){
 		Artist updatedArtiste = service.update(id, artist);
@@ -85,7 +86,7 @@ public class ArtistController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"ADMIN"})
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/artists/{id}")
 	ResponseEntity<Artist> deleteArtist(@PathVariable(value="id") long id){
 		Optional<Artist> artist = service.findById(id);

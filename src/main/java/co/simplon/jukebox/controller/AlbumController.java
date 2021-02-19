@@ -4,6 +4,7 @@ import co.simplon.jukebox.model.Album;
 import co.simplon.jukebox.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -73,14 +74,14 @@ public class AlbumController {
 	 * @return
 	 */
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PostMapping("/albums")
 	ResponseEntity<Album> addAlbum(@Valid @RequestBody Album album){
 		return ResponseEntity.ok().body(service.insert(album));
 	}
 	
 	@CrossOrigin
-	@RolesAllowed({"MANAGER"})
+	@Secured({"ROLE_MANAGER"})
 	@PutMapping("/albums/{id}")
 	ResponseEntity<Album> updateAlbum(@PathVariable(value="id") long id, @Valid @RequestBody Album album){
 		Album updatedAlbum = service.update(id, album);
@@ -91,7 +92,7 @@ public class AlbumController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"ADMIN"})
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/albums/{id}")
 	ResponseEntity<Album> deleteAlbum(@PathVariable(value="id") long id){
 		Optional<Album> album = service.findById(id);

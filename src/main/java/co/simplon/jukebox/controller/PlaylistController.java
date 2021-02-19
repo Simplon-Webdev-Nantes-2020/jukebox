@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,7 +84,7 @@ public class PlaylistController {
 	}
 
 	@CrossOrigin
-	@RolesAllowed({"ADMIN"})
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/playlists/{id}")
 	ResponseEntity<Playlist> deletePlayList(@PathVariable(value="id") long id){
 		Optional<Playlist> PlayList = service.findById(id);
