@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e3be1af5-9a7e-4fb5-b47c-bb1d12d85e02",
+		"_postman_id": "84e1dca9-32ef-4556-8721-585bf0f8530b",
 		"name": "Jukebox",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,44 +9,93 @@
 			"name": "login",
 			"item": [
 				{
-					"name": "home",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "page login",
+					"name": "login manu",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const $ = cheerio.load(responseBody)\r",
-									"\r",
-									"pm.test(\"it should return a csrf\", () => { \r",
-									"    const csrf_value = $(\"input[name='_csrf']\").val();\r",
-									"    pm.expect(csrf_value).to.not.be.empty;\r",
-									"    pm.environment.set(\"csrf_value\", csrf_value);\r",
-									"})"
+									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
+									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
+									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "manu",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "manu",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login toto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
+									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "toto",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "toto",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{localhost}}/login",
 							"host": [
@@ -94,67 +143,44 @@
 					"response": []
 				},
 				{
-					"name": "login manu",
+					"name": "home",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "manu",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "manu",
-									"type": "text"
-								},
-								{
-									"key": "_csrf",
-									"value": "{{csrf_value}}",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{localhost}}/login",
+							"raw": "{{localhost}}/",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
-								"login"
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "login toto",
+					"name": "page login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const $ = cheerio.load(responseBody)\r",
+									"\r",
+									"pm.test(\"it should return a xsrf\", () => { \r",
+									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
+									"    pm.expect(xsrfCookie.value).to.not.be.empty;\r",
+									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "toto",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "toto",
-									"type": "text"
-								},
-								{
-									"key": "_csrf",
-									"value": "{{csrf_value}}",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
 							"raw": "{{localhost}}/login",
 							"host": [
@@ -169,6 +195,19 @@
 				},
 				{
 					"name": "login admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
+									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -383,6 +422,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -400,6 +444,258 @@
 						}
 					},
 					"response": [
+						{
+							"name": "Collection Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "162",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900431",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
+						},
+						{
+							"name": "Collection Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"name": "Content-Encoding",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "109",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:23:49 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"89-p4nfYdFl+5DEKOdB5g399Q\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900267",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
+						},
 						{
 							"name": "Malformed Request",
 							"originalRequest": {
@@ -575,258 +871,6 @@
 							],
 							"cookie": [],
 							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
-						},
-						{
-							"name": "Collection Created",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip",
-									"name": "Content-Encoding",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "109",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:23:49 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"89-p4nfYdFl+5DEKOdB5g399Q\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "57",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900267",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
-						},
-						{
-							"name": "Collection Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "162",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "58",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900431",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						}
 					]
 				},
@@ -866,6 +910,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1014,7 +1063,7 @@
 							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
 						},
 						{
-							"name": "Create Collection in a Workspace",
+							"name": "Malformed Request",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -1029,10 +1078,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
 								},
 								"url": {
-									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
+									"raw": "https://api.getpostman.com/collections",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -1041,30 +1090,100 @@
 									],
 									"path": [
 										"collections"
-									],
-									"query": [
-										{
-											"key": "workspace",
-											"value": "{{workspace_id}}",
-											"description": "The workspace ID in which the collection is to be created"
-										}
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
+							"status": "Bad Request",
+							"code": 400,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "94",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
 									"key": "Content-Type",
-									"value": "application/json",
+									"value": "application/json; charset=utf-8",
 									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "55",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900267",
+									"name": "X-RateLimit-Reset",
+									"description": ""
 								}
 							],
 							"cookie": [],
-							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
+							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
 						},
 						{
 							"name": "Collection Already Exists",
@@ -1190,7 +1309,7 @@
 							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						},
 						{
-							"name": "Malformed Request",
+							"name": "Create Collection in a Workspace",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -1205,10 +1324,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
 								},
 								"url": {
-									"raw": "https://api.getpostman.com/collections",
+									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -1217,100 +1336,30 @@
 									],
 									"path": [
 										"collections"
+									],
+									"query": [
+										{
+											"key": "workspace",
+											"value": "{{workspace_id}}",
+											"description": "The workspace ID in which the collection is to be created"
+										}
 									]
 								}
 							},
-							"status": "Bad Request",
-							"code": 400,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "94",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
 									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
+									"value": "application/json",
 									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "55",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900267",
-									"name": "X-RateLimit-Reset",
-									"description": ""
+									"description": "",
+									"type": "text"
 								}
 							],
 							"cookie": [],
-							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
+							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
 						}
 					]
 				},
@@ -1318,7 +1367,13 @@
 					"name": "delete artist",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/artists/{{new_artist_id}}",
 							"host": [
@@ -1482,7 +1537,7 @@
 							},
 							{
 								"key": "X-XSRF-TOKEN",
-								"value": "{{csrf_value}}",
+								"value": "{{xsrf-token}}",
 								"type": "text"
 							}
 						],
@@ -1631,182 +1686,6 @@
 							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
 						},
 						{
-							"name": "Collection Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "162",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "58",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900431",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
-						},
-						{
-							"name": "Create Collection in a Workspace",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									],
-									"query": [
-										{
-											"key": "workspace",
-											"value": "{{workspace_id}}",
-											"description": "The workspace ID in which the collection is to be created"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
-						},
-						{
 							"name": "Malformed Request",
 							"originalRequest": {
 								"method": "POST",
@@ -1928,6 +1807,182 @@
 							],
 							"cookie": [],
 							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
+						},
+						{
+							"name": "Create Collection in a Workspace",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									],
+									"query": [
+										{
+											"key": "workspace",
+											"value": "{{workspace_id}}",
+											"description": "The workspace ID in which the collection is to be created"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
+						},
+						{
+							"name": "Collection Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "162",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900431",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						}
 					]
 				},
@@ -1953,6 +2008,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2405,7 +2465,13 @@
 					"name": "delete album",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/albums/{{new_album_id}}",
 							"host": [
@@ -2577,6 +2643,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2595,7 +2666,7 @@
 					},
 					"response": [
 						{
-							"name": "Create Collection in a Workspace",
+							"name": "Malformed Request",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -2610,10 +2681,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
 								},
 								"url": {
-									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
+									"raw": "https://api.getpostman.com/collections",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -2622,30 +2693,100 @@
 									],
 									"path": [
 										"collections"
-									],
-									"query": [
-										{
-											"key": "workspace",
-											"value": "{{workspace_id}}",
-											"description": "The workspace ID in which the collection is to be created"
-										}
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
+							"status": "Bad Request",
+							"code": 400,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "94",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
 									"key": "Content-Type",
-									"value": "application/json",
+									"value": "application/json; charset=utf-8",
 									"name": "Content-Type",
-									"description": "",
-									"type": "text"
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "55",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900267",
+									"name": "X-RateLimit-Reset",
+									"description": ""
 								}
 							],
 							"cookie": [],
-							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
+							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
 						},
 						{
 							"name": "Collection Created",
@@ -2900,7 +3041,7 @@
 							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						},
 						{
-							"name": "Malformed Request",
+							"name": "Create Collection in a Workspace",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -2915,10 +3056,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
 								},
 								"url": {
-									"raw": "https://api.getpostman.com/collections",
+									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
 									"protocol": "https",
 									"host": [
 										"api",
@@ -2927,100 +3068,30 @@
 									],
 									"path": [
 										"collections"
+									],
+									"query": [
+										{
+											"key": "workspace",
+											"value": "{{workspace_id}}",
+											"description": "The workspace ID in which the collection is to be created"
+										}
 									]
 								}
 							},
-							"status": "Bad Request",
-							"code": 400,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "94",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
 									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
+									"value": "application/json",
 									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "55",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900267",
-									"name": "X-RateLimit-Reset",
-									"description": ""
+									"description": "",
+									"type": "text"
 								}
 							],
 							"cookie": [],
-							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
+							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
 						}
 					]
 				},
@@ -3046,6 +3117,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -3064,6 +3140,129 @@
 						}
 					},
 					"response": [
+						{
+							"name": "Collection Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "162",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900431",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
+						},
 						{
 							"name": "Create Collection in a Workspace",
 							"originalRequest": {
@@ -3116,6 +3315,129 @@
 							],
 							"cookie": [],
 							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
+						},
+						{
+							"name": "Malformed Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "94",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "55",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900267",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
 						},
 						{
 							"name": "Collection Created",
@@ -3245,252 +3567,6 @@
 							],
 							"cookie": [],
 							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
-						},
-						{
-							"name": "Malformed Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "94",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:24:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"5e-pljLJKY51ijXQuNsHOu0qw\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "55",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900267",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
-						},
-						{
-							"name": "Collection Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "162",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "58",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900431",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						}
 					]
 				},
@@ -3498,7 +3574,13 @@
 					"name": "delete track",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/tracks/{{new_track_id}}",
 							"host": [
@@ -3668,6 +3750,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -3685,182 +3772,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Create Collection in a Workspace",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									],
-									"query": [
-										{
-											"key": "workspace",
-											"value": "{{workspace_id}}",
-											"description": "The workspace ID in which the collection is to be created"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"name": "Content-Type",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
-						},
-						{
-							"name": "Collection Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "162",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "58",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900431",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
-						},
 						{
 							"name": "Malformed Request",
 							"originalRequest": {
@@ -3983,6 +3894,59 @@
 							],
 							"cookie": [],
 							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
+						},
+						{
+							"name": "Create Collection in a Workspace",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"info\": {\n      \"name\": \"Sample Collection {{$randomInt}}\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"https://postman-echo.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\\"data\\\": \\\"123\\\"}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"https://postman-echo/get\",\n          \"method\": \"GET\",\n          \"description\": \"This is a sample GET Request\"\n        }\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections?workspace={{workspace_id}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									],
+									"query": [
+										{
+											"key": "workspace",
+											"value": "{{workspace_id}}",
+											"description": "The workspace ID in which the collection is to be created"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"collection\": {\n\t\t\"id\": \"2412a72c-1d8e-491b-aced-93809c0e94e9\",\n    \"name\": \"Sample Collection\",\n    \"uid\": \"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"\n\t}\n}"
 						},
 						{
 							"name": "Collection Created",
@@ -4112,6 +4076,129 @@
 							],
 							"cookie": [],
 							"body": "{\"collection\":{\"id\":\"2412a72c-1d8e-491b-aced-93809c0e94e9\",\"name\":\"Sample Collection\",\"uid\":\"5852-2412a72c-1d8e-491b-aced-93809c0e94e9\"}}"
+						},
+						{
+							"name": "Collection Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "162",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900431",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						}
 					]
 				},
@@ -4137,6 +4224,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -4155,6 +4247,129 @@
 						}
 					},
 					"response": [
+						{
+							"name": "Collection Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Api-Key",
+										"value": "{{postman_api_key}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
+								},
+								"url": {
+									"raw": "https://api.getpostman.com/collections",
+									"protocol": "https",
+									"host": [
+										"api",
+										"getpostman",
+										"com"
+									],
+									"path": [
+										"collections"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": ""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "162",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
+									"name": "ETag",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "nginx/1.8.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60",
+									"name": "X-RateLimit-Limit",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58",
+									"name": "X-RateLimit-Remaining",
+									"description": ""
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1479900431",
+									"name": "X-RateLimit-Reset",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
+						},
 						{
 							"name": "Collection Created",
 							"originalRequest": {
@@ -4459,129 +4674,6 @@
 							],
 							"cookie": [],
 							"body": "{\"error\":{\"name\":\"malformedRequestError\",\"message\":\"Missing required property: name at info\"}}"
-						},
-						{
-							"name": "Collection Already Exists",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "X-Api-Key",
-										"value": "{{postman_api_key}}"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"collection\": {\n    \"variables\": [],\n    \"info\": {\n      \"_postman_id\": \"ac03df1d-90f0-401d-aa57-39c395253c80\",\n      \"name\": \"Sample Collection\",\n      \"description\": \"This is just a sample collection.\",\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\n    },\n    \"item\": [\n      {\n        \"name\": \"This is a folder\",\n        \"description\": \"\",\n        \"item\": [\n          {\n            \"name\": \"Sample POST Request\",\n            \"request\": {\n              \"url\": \"echo.getpostman.com/post\",\n              \"method\": \"POST\",\n              \"header\": [\n                {\n                  \"key\": \"Content-Type\",\n                  \"value\": \"application/json\",\n                  \"description\": \"\"\n                }\n              ],\n              \"body\": {\n                \"mode\": \"raw\",\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\n              },\n              \"description\": \"This is a sample POST Request\"\n            },\n            \"response\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Sample GET Request\",\n        \"request\": {\n          \"url\": \"echo.getpostman.com/get\",\n          \"method\": \"GET\",\n          \"header\": [],\n          \"body\": {\n            \"mode\": \"formdata\",\n            \"formdata\": []\n          },\n          \"description\": \"This is a sample GET Request\"\n        },\n        \"response\": []\n      }\n    ]\n  }\n}"
-								},
-								"url": {
-									"raw": "https://api.getpostman.com/collections",
-									"protocol": "https",
-									"host": [
-										"api",
-										"getpostman",
-										"com"
-									],
-									"path": [
-										"collections"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "",
-									"name": "Access-Control-Allow-Credentials",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "",
-									"name": "Access-Control-Allow-Headers",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "",
-									"name": "Access-Control-Allow-Methods",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "",
-									"name": "Access-Control-Allow-Origin",
-									"description": ""
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "",
-									"name": "Access-Control-Expose-Headers",
-									"description": ""
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive",
-									"name": "Connection",
-									"description": ""
-								},
-								{
-									"key": "Content-Length",
-									"value": "162",
-									"name": "Content-Length",
-									"description": ""
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8",
-									"name": "Content-Type",
-									"description": ""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Nov 2016 11:26:15 GMT",
-									"name": "Date",
-									"description": ""
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"a2-6Yn0MohF7SWjZhtKpPnEAQ\"",
-									"name": "ETag",
-									"description": ""
-								},
-								{
-									"key": "Server",
-									"value": "nginx/1.8.0",
-									"name": "Server",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Limit",
-									"value": "60",
-									"name": "X-RateLimit-Limit",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Remaining",
-									"value": "58",
-									"name": "X-RateLimit-Remaining",
-									"description": ""
-								},
-								{
-									"key": "X-RateLimit-Reset",
-									"value": "1479900431",
-									"name": "X-RateLimit-Reset",
-									"description": ""
-								}
-							],
-							"cookie": [],
-							"body": "{\"error\":{\"name\":\"instanceFoundError\",\"message\":\"The specified item already exists.\",\"details\":{\"item\":\"collection\",\"id\":\"ac03df1d-90f0-401d-aa57-39c395253c80\"}}}"
 						}
 					]
 				},
@@ -4589,7 +4681,13 @@
 					"name": "delete playlist",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_url}}/playlists/{{new_playlist_id}}",
 							"host": [

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -37,7 +38,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-    //            .csrf().disable() // suppression ctrl xsrf
+                .csrf()
+                    //.disable() // suppression ctrl xsrf
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //xsrf dans cookie
+                    .and()
                 .authorizeRequests()
 //                .anyRequest().permitAll() //pour test sans authentification
                 .antMatchers("/admin/*").hasRole("ADMIN")  //toutes les url admin requiert un ADMIN
