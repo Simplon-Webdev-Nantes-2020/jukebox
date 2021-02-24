@@ -1,5 +1,6 @@
 package co.simplon.jukebox.login;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@ConditionalOnProperty(prefix = "app", name = "security", havingValue = "true", matchIfMissing = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
