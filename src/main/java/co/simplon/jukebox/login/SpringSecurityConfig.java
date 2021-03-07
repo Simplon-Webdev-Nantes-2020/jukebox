@@ -1,5 +1,6 @@
 package co.simplon.jukebox.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +9,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -19,14 +20,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @ConditionalOnProperty(prefix = "app", name = "security", havingValue = "true", matchIfMissing = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
-     * chiffrage du mot de passe avec Bcrypt
-     * @return encoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     /**
      *  filtre des requetes
@@ -43,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     //.disable() // suppression ctrl xsrf
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //xsrf dans cookie
-                    .and()
+                .and()
                 .authorizeRequests()
 //                .anyRequest().permitAll() //pour test sans authentification
                 .antMatchers("/admin/*").hasRole("ADMIN")  //toutes les url admin requiert un ADMIN
@@ -56,27 +54,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 ;
     }
 
-    /**
-     * 3 users avec 3 roles precis
-     * users stockes en memoire
-     * @param auth
-     * @throws Exception
-     */
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("toto")
-            .password(passwordEncoder().encode("toto"))
-            .roles("USER")
-            .and()
-            .withUser("manu")
-                .password(passwordEncoder().encode("manu"))
-                .roles("USER","MANAGER")
-            .and()
-            .withUser("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN","MANAGER","USER")
-            ;
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

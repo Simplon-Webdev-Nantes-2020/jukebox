@@ -2,6 +2,26 @@ CREATE SCHEMA JUKEBOX_SCHEMA AUTHORIZATION SA;
 
 use JUKEBOX_SCHEMA;
 
+CREATE TABLE user (
+    id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255),
+    created_date TIMESTAMP
+);
+
+CREATE TABLE authority (
+    id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE user_authority (
+    user_id      INTEGER ,
+    authority_id INTEGER,
+    PRIMARY KEY (user_id, authority_id),
+    foreign key (user_id) references user(id),
+    foreign key (authority_id) references authority(id)
+);
+
 CREATE TABLE artist (
     id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,

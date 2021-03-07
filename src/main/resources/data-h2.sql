@@ -1,5 +1,23 @@
 use JUKEBOX_SCHEMA;
 
+/* users / authorities */
+INSERT INTO `user` (`id`, `username`, `password`, `created_date`) VALUES (1,'admin','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','2021-03-08 17:13:54');
+INSERT INTO `user` (`id`, `username`, `password`, `created_date`) VALUES (2,'manu','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','2021-03-08 17:13:54');
+INSERT INTO `user` (`id`, `username`, `password`, `created_date`) VALUES (3,'toto','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','2021-03-08 17:13:54');
+
+
+INSERT INTO `authority`(`id`, `name`) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO `authority`(`id`, `name`) VALUES (2, 'ROLE_MANAGER');
+INSERT INTO `authority`(`id`, `name`) VALUES (3, 'ROLE_USER');
+
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (1, 1);
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (1, 2);
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (1, 3);
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (2, 2);
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (2, 3);
+INSERT INTO `user_authority`(`user_id`, `authority_id`) VALUES (3, 3);
+
+
 /* artistes */
 insert into artist(id, name, bio, fan_number) 
 	values(1, 'Celtic woman','En 2004, les producteurs Sharon Browne et David Downes, directeur musical...',31760);
