@@ -1,4 +1,4 @@
-package co.simplon.jukebox.login;
+package co.simplon.jukebox.login.model;
 
 public enum Role {
     ROLE_ADMIN,

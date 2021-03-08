@@ -1,5 +1,7 @@
 package co.simplon.jukebox.login;
 
+import co.simplon.jukebox.login.model.AppUser;
+import co.simplon.jukebox.login.repository.AppUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<AppUser> user = userRepository.findByusername(username);
+        Optional<AppUser> user = userRepository.findByUsername(username);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("AppUser '" + username + "' not found");

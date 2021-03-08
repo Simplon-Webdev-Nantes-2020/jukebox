@@ -1,4 +1,4 @@
-package co.simplon.jukebox.login;
+package co.simplon.jukebox.login.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -32,11 +32,4 @@ public class Authority implements GrantedAuthority {
         this.id = id;
     }
 
-    public Role getName() {
-        return name;
-    }
-
-    public void setName(Role name) {
-        this.name = name;
-    }
 }
