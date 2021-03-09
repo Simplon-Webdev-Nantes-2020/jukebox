@@ -11,17 +11,12 @@ public class Authority implements GrantedAuthority {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    private Role name;
-
-    public Authority() {}
-
-    public Authority(Role name) {
-        this.name = name;
-    }
+    @Column(name = "name")
+    private Role authority;
 
     @Override
     public String getAuthority() {
-        return name.name();
+        return authority.name();
     }
 
     public Integer getId() {

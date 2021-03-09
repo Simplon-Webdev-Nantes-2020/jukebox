@@ -6,6 +6,8 @@ CREATE TABLE user (
     id   INTEGER   PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255),
+    email VARCHAR(50),
+    active BOOLEAN DEFAULT true,
     created_date TIMESTAMP
 );
 

@@ -4,11 +4,10 @@ import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,13 +18,17 @@ public class AppUserController {
     @Autowired
     private AppUserService service;
 
+    @CrossOrigin
     @GetMapping
-    public List<AppUser> getAllUsers() {
-        return service.findAllUsers();
+    public List<AppUser> getAllUsers(
+            @RequestParam(value="name", defaultValue="") String name,
+            @RequestParam(value="email", defaultValue="") String email) {
+        return service.findAllUsers(name,email);
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
-    ResponseEntity<AppUser> getAlbumById(@PathVariable(value="id") long id) {
+    ResponseEntity<AppUser> getUserById(@PathVariable(value="id") long id) {
         Optional<AppUser> appUser = service.findById(id);
         if (appUser.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -33,5 +36,28 @@ public class AppUserController {
         return ResponseEntity.ok().body(appUser.get());
     }
 
+    @CrossOrigin
+    @PostMapping
+    AppUser addUser(@Valid @RequestBody AppUser user){
+        return service.insert(user);
+    }
 
+    @PutMapping("/{id}")
+    ResponseEntity<AppUser> updateUser(@PathVariable(value="id") long id, @Valid @RequestBody AppUser user){
+        AppUser updatedUser = service.update(id, user);
+        if(updatedUser == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok().body(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<AppUser> deleteUser(@PathVariable(value="id") long id){
+        Optional<AppUser> user = service.findById(id);
+        if(user.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        service.delete(user.get().getId());
+        return ResponseEntity.accepted().build();
+    }
 }

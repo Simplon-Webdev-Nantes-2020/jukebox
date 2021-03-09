@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,18 +20,24 @@ public class AppUser {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @NotEmpty
-    @Column(nullable = false)
     @JsonIgnore
     private String password;
 
+    @NotEmpty
+    @Column(unique=true)
+    @Pattern(regexp="^(\\w||\\.)+@\\w+\\.\\w+$")
+    private String email;
+
     private LocalDateTime createdDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    private Boolean active = false;
+
+    @ManyToMany
     @JoinTable(name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_id") })
     private Set<Authority> authorities = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -62,6 +69,22 @@ public class AppUser {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Set<Authority> getAuthorities() {
