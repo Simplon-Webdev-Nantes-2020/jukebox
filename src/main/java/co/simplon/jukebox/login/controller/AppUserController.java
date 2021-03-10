@@ -1,5 +1,6 @@
 package co.simplon.jukebox.login.controller;
 
+import co.simplon.jukebox.login.dto.PasswordsDto;
 import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,13 @@ public class AppUserController {
         service.delete(user.get().getId());
         return ResponseEntity.accepted().build();
     }
+
+    @PutMapping("/{id}/password")
+    ResponseEntity<AppUser> changePassword(
+            @PathVariable(value="id") long id,
+            @Valid @RequestBody PasswordsDto pwd){
+        service.changePassword(id, pwd);
+        return ResponseEntity.accepted().build();
+    }
+
 }

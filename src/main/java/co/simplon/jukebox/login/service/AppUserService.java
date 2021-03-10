@@ -1,5 +1,6 @@
 package co.simplon.jukebox.login.service;
 
+import co.simplon.jukebox.login.dto.PasswordsDto;
 import co.simplon.jukebox.login.model.AppUser;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface AppUserService {
     AppUser insert(AppUser user);
     AppUser update(Long id, AppUser user);
     void delete(Long id);
+    void changePassword(Long id, PasswordsDto password);
 }

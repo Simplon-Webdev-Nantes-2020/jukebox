@@ -1,5 +1,7 @@
 package co.simplon.jukebox.login.service;
 
+import co.simplon.jukebox.common.AppException;
+import co.simplon.jukebox.login.dto.PasswordsDto;
 import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +61,18 @@ public class AppUserServiceImpl implements AppUserService{
         Optional<AppUser> user = this.findById(id);
         user.ifPresent(appUser -> repository.delete(appUser));
     }
-    
+
+    @Override
+    public void changePassword(Long id, PasswordsDto password) {
+        AppUser user = repository.findById(id).orElseThrow();
+
+        if (!password.isForcePwdChange()) {
+            if (passwordEncoder.matches(password.getNewPassword(), user.getPassword()))
+                throw new AppException("User password", "Invalid old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(password.getNewPassword()));
+        repository.save(user);
+    }
+
 }
