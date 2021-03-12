@@ -38,20 +38,25 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .csrf()
+                .csrf()//config csrf
                     //.disable() // suppression ctrl xsrf
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) //xsrf dans cookie
+                    .ignoringAntMatchers("/h2-console/**") //pas de xsrf pour h2-console
                 .and()
-                .authorizeRequests()
-//                .anyRequest().permitAll() //pour test sans authentification
-                .antMatchers("/admin/*").hasRole("ADMIN")  //toutes les url admin requiert un ADMIN
-                .antMatchers("/jukebox/playlists/**").hasRole("USER") //toutes les url playlist demande un USER
+                .headers().frameOptions().sameOrigin()//h2-console frame
+                .and()
+                .authorizeRequests() //requetes autorisees
+//                  .anyRequest().permitAll() //pour test sans authentification
+                    .antMatchers("/h2-console/**").permitAll()  //autoriser h2-console
+                    .antMatchers("/admin/*").hasRole("ADMIN")  //toutes les url admin requiert un ADMIN
+                    .antMatchers("/jukebox/playlists/**").hasRole("USER") //toutes les url playlist demande un USER
 //                .anyRequest().authenticated()  //toutes les requetes demande une identification
                 .and()
-                .formLogin().permitAll()
+                .formLogin().permitAll() //login pour tous
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                 ;
+
     }
 
     @Override
