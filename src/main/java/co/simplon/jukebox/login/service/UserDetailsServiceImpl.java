@@ -1,4 +1,4 @@
-package co.simplon.jukebox.login;
+package co.simplon.jukebox.login.service;
 
 import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.repository.AppUserRepository;

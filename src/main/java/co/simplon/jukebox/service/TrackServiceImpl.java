@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.simplon.jukebox.common.AppException;
+import co.simplon.jukebox.common.InvalidEntryException;
 import co.simplon.jukebox.model.Track;
 import co.simplon.jukebox.repository.TrackRepository;
 
@@ -51,7 +51,7 @@ public class TrackServiceImpl implements TrackService {
 			
 			// verification que le track n'est pas dans une playlist
 			if (!track.get().getPlaylists().isEmpty())
-				throw new AppException("Invalid Delete, track in use", "Track in playlist");
+				throw new InvalidEntryException("Invalid Delete, track in use", "Track in playlist");
 			repository.delete(track.get());
 		}
 	}

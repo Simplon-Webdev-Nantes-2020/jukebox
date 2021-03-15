@@ -1,5 +1,7 @@
 package co.simplon.jukebox.login.model;
 
+import co.simplon.jukebox.login.dto.NewUserDto;
+import co.simplon.jukebox.login.dto.RegistrationDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -38,6 +40,13 @@ public class AppUser {
             inverseJoinColumns = { @JoinColumn(name = "authority_id") })
     private Set<Authority> authorities = new HashSet<>();
 
+    public AppUser() {
+    }
+
+    public AppUser(@NotEmpty String username, @NotEmpty @Pattern(regexp = "^(\\w||\\.)+@\\w+\\.\\w+$") String email) {
+        this.username = username;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;

@@ -1,12 +1,12 @@
 package co.simplon.jukebox.common;
 
 
-public class AppException extends RuntimeException {
+public class InvalidEntryException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
-	private String category;
+	private final String category;
 
-	public AppException(String category, String message) {
+	public InvalidEntryException(String category, String message) {
         super(message);
         this.category = category;
     }

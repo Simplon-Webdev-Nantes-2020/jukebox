@@ -1,6 +1,7 @@
 package co.simplon.jukebox.login.controller;
 
-import co.simplon.jukebox.login.dto.PasswordsDto;
+import co.simplon.jukebox.login.dto.NewPasswordDto;
+import co.simplon.jukebox.login.dto.NewUserDto;
 import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public class AppUserController {
 
     @CrossOrigin
     @PostMapping
-    AppUser addUser(@Valid @RequestBody AppUser user){
+    AppUser addUser(@Valid @RequestBody NewUserDto user){
         return service.insert(user);
     }
 
@@ -65,7 +65,7 @@ public class AppUserController {
     @PutMapping("/{id}/password")
     ResponseEntity<AppUser> changePassword(
             @PathVariable(value="id") long id,
-            @Valid @RequestBody PasswordsDto pwd){
+            @Valid @RequestBody NewPasswordDto pwd){
         service.changePassword(id, pwd);
         return ResponseEntity.accepted().build();
     }

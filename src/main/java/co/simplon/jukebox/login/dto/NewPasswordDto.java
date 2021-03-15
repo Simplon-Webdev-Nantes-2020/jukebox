@@ -1,13 +1,15 @@
 package co.simplon.jukebox.login.dto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
-public class PasswordsDto {
+public class NewPasswordDto {
 
 	@NotEmpty
 	private String oldPassword;
 
 	@NotEmpty
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8,20}$")
 	private String newPassword;
 
 	private boolean forcePwdChange = false;

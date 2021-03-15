@@ -19,6 +19,10 @@ public class Authority implements GrantedAuthority {
         return authority.name();
     }
 
+    public void setAuthority(Role authority) {
+        this.authority = authority;
+    }
+
     public Integer getId() {
         return id;
     }

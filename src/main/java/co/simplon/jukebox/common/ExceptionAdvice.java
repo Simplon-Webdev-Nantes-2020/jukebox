@@ -1,10 +1,12 @@
 package co.simplon.jukebox.common;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -54,12 +56,16 @@ public class ExceptionAdvice {
 	 * @return
 	 */
 	@ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(AppException.class)
-    public Map<String, Object> handleDataIntegrityExceptions(AppException e, HttpServletRequest request) {
+    @ExceptionHandler(InvalidEntryException.class)
+    public Map<String, Object> handleDataIntegrityExceptions(InvalidEntryException e, HttpServletRequest request) {
     	return mapMessage(request, HttpStatus.FORBIDDEN,e.getCategory(), e.getMessage());
 	}
 
-	
+	@ExceptionHandler(InternalException.class)
+	public void handleCustomException(HttpServletResponse res, InternalException ex) throws IOException {
+		res.sendError(ex.getHttpStatus().value(), ex.getMessage());
+	}
+
 	/**
 	 * mise en forme du message retourne
 	 * @param request : la requete qui est en erreur
