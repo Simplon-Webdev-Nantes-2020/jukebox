@@ -8,7 +8,8 @@ CREATE TABLE user (
     password VARCHAR(255),
     email VARCHAR(50),
     active BOOLEAN DEFAULT true,
-    created_date TIMESTAMP
+    created_date TIMESTAMP,
+    secret_code VARCHAR(100)
 );
 
 CREATE TABLE authority (

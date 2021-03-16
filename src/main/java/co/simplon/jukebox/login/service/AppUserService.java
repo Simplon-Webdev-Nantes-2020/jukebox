@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface AppUserService {
     JwtTokens signin(String username, String password) throws AuthenticationException;
     JwtTokens signup(RegistrationDto user) throws InvalidEntryException;
-    // JwtTokens refreshJwtToken(String token);
+    JwtTokens refreshJwtToken(String token);
     List<AppUser> findAllUsers(String name, String email);
     Optional<AppUser> findById(Long id);
     Optional<AppUser> findByName(String name);

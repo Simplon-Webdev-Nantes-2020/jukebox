@@ -34,6 +34,9 @@ public class AppUser {
 
     private Boolean active = false;
 
+    @JsonIgnore
+    private String secretCode;
+
     @ManyToMany
     @JoinTable(name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -102,5 +105,13 @@ public class AppUser {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getSecretCode() {
+        return secretCode;
+    }
+
+    public void setSecretCode(String secretCode) {
+        this.secretCode = secretCode;
     }
 }

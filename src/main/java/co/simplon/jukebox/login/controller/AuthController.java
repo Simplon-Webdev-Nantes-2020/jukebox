@@ -25,10 +25,10 @@ public class AuthController {
         JwtTokens tokens = service.signup(user);
         return ResponseEntity.ok().body(tokens);
     }
-/*
+
     @PostMapping(value = "/refresh")
     public ResponseEntity<JwtTokens> refreshToken(@RequestBody String refreshToken) {
         JwtTokens tokens = service.refreshJwtToken(refreshToken);
         return ResponseEntity.ok().body(tokens);
-    }*/
+    }
 }

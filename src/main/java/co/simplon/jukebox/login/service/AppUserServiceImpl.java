@@ -11,6 +11,8 @@ import co.simplon.jukebox.login.model.Authority;
 import co.simplon.jukebox.login.model.Role;
 import co.simplon.jukebox.login.repository.AppUserRepository;
 import co.simplon.jukebox.login.repository.AuthorityRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,7 +47,8 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public JwtTokens signin(String username, String password) throws InvalidEntryException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        return jwtTokenProvider.createTokens(username, repository.findByUsername(username).orElseThrow().getAuthorities());
+        AppUser user = repository.findByUsername(username).orElseThrow();
+        return jwtTokenProvider.createTokens(user);
     }
 
     @Override
@@ -67,16 +70,16 @@ public class AppUserServiceImpl implements AppUserService{
         repository.save(appUser);
 
         // JWT
-        return jwtTokenProvider.createTokens(appUser.getUsername(), appUser.getAuthorities());
+        return jwtTokenProvider.createTokens(appUser);
     }
-/*
+
     @Override
     public JwtTokens refreshJwtToken(String refreshToken) {
         Jws<Claims> claims = jwtTokenProvider.validateJwtRefreshToken(refreshToken);
         String newToken = jwtTokenProvider.createTokenFromClaims(claims);
         return new JwtTokens(newToken, refreshToken);
     }
-*/
+
     @Override
     public List<AppUser> findAllUsers(String name, String email) {
         if (! "".equals(name))
@@ -132,5 +135,6 @@ public class AppUserServiceImpl implements AppUserService{
         user.setPassword(passwordEncoder.encode(password.getNewPassword()));
         repository.save(user);
     }
+
 
 }
