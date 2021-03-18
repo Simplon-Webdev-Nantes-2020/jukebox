@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class AuthController {
 
@@ -21,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtTokens> signup(@RequestBody RegistrationDto user) {
+    public ResponseEntity<JwtTokens> signup(@Valid @RequestBody RegistrationDto user) {
         JwtTokens tokens = service.signup(user);
         return ResponseEntity.ok().body(tokens);
     }

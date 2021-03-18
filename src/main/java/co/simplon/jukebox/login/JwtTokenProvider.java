@@ -99,7 +99,6 @@ public class JwtTokenProvider {
     private void generateSecretCode(AppUser user) {
         LocalDateTime time = LocalDateTime.now();
         user.setSecretCode(user.getUsername() + time);
-        userRepo.save(user);
     }
 
 

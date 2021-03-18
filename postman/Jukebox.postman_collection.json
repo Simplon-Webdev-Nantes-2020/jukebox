@@ -161,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"macaron\",\n    \"email\": \"macaron@jukebox.com\",\n    \"password\": \"macaron\"\n}"
+							"raw": "{\n    \"username\": \"macaron\",\n    \"email\": \"macaron@jukebox.com\",\n    \"password\": \"Pres1d3n!\"\n}"
 						},
 						"url": {
 							"raw": "{{localhost}}/signup",
@@ -605,38 +605,6 @@
 					]
 				},
 				{
-					"name": "signup macaron",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"macaron\",\r\n    \"email\": \"macaron@jukebox.com\",\r\n    \"password\": \"macaron\"\r\n }"
-						},
-						"url": {
-							"raw": "{{localhost}}/signup",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "signin admin",
 					"event": [
 						{
@@ -863,7 +831,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"bigboss\",\n    \"email\": \"bigboss@jukebox.com\",\n    \"password\": \"bigboss\",\n    \"authorities\": [\n         {\n            \"id\": 2,\n            \"authority\": \"ROLE_MANAGER\"\n        }\n    ]\n}"
+							"raw": "{\n    \"username\": \"bigboss\",\n    \"email\": \"bigboss@jukebox.com\",\n    \"password\": \"9b1gBoss#\",\n    \"authorities\": [\n         {\n            \"id\": 2,\n            \"authority\": \"ROLE_MANAGER\"\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{admin_url}}/users",
@@ -1334,7 +1302,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"oldPassword\": \"password\",\n    \"newPassword\": \"bigboss\",\n    \"forcePwdChange\": false\n}"
+							"raw": "{\n    \"oldPassword\": \"9b1gBoss#\",\n    \"newPassword\": \"85frMO8G#824\",\n    \"forcePwdChange\": false\n}"
 						},
 						"url": {
 							"raw": "{{admin_url}}/users/{{new_user_id}}/password",

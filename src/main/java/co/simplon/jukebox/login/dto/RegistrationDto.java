@@ -10,7 +10,8 @@ public class RegistrationDto {
     protected String username;
 
     @NotEmpty
-    @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8,20}$")
+    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",
+             message= "Password must contain at least eight characters, at least one letter, one number and one special character")
     protected String password;
 
     @NotEmpty

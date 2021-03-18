@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -48,15 +49,19 @@ public class AppUserServiceImpl implements AppUserService{
     public JwtTokens signin(String username, String password) throws InvalidEntryException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         AppUser user = repository.findByUsername(username).orElseThrow();
-        return jwtTokenProvider.createTokens(user);
+        JwtTokens tokens = jwtTokenProvider.createTokens(user);
+        repository.save(user);
+        return tokens;
     }
 
     @Override
-    public JwtTokens signup(RegistrationDto inputUser) throws InvalidEntryException {
+    public JwtTokens signup(@Valid RegistrationDto inputUser) throws InvalidEntryException {
 
         // verify that user not exist
         if (repository.existsByUsername(inputUser.getUsername()))
             throw new InvalidEntryException("User", "User already exist");
+        if (repository.existsByEmail(inputUser.getEmail()))
+            throw new InvalidEntryException("User", "there is already a user with this email");
 
         // default role = USER
         Optional<Authority> roleUser = repoAuthority.findByAuthority(Role.ROLE_USER);
@@ -67,10 +72,11 @@ public class AppUserServiceImpl implements AppUserService{
         appUser.setAuthorities(Collections.singleton(roleUser.orElseThrow()));
         appUser.setCreatedDate(LocalDateTime.now());
         appUser.setActive(true);
-        repository.save(appUser);
 
         // JWT
-        return jwtTokenProvider.createTokens(appUser);
+        JwtTokens tokens =  jwtTokenProvider.createTokens(appUser);
+        repository.save(appUser);
+        return tokens;
     }
 
     @Override
@@ -120,7 +126,7 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public void delete(Long id) {
         Optional<AppUser> user = this.findById(id);
-        user.ifPresent(appUser -> repository.delete(appUser));
+        user.ifPresent(repository::delete);
     }
 
     @Override
@@ -128,7 +134,7 @@ public class AppUserServiceImpl implements AppUserService{
         AppUser user = repository.findById(id).orElseThrow();
 
         if (!password.isForcePwdChange()) {
-            if (passwordEncoder.matches(password.getNewPassword(), user.getPassword()))
+            if (!passwordEncoder.matches(password.getOldPassword(), user.getPassword()))
                 throw new InvalidEntryException("User password", "Invalid old password");
         }
 
