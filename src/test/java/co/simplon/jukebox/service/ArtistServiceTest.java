@@ -30,7 +30,7 @@ public class ArtistServiceTest {
 
     @BeforeEach
     public void init() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @DisplayName("find all artists")
@@ -82,7 +82,7 @@ public class ArtistServiceTest {
 
         //WHEN
         Optional<Artist> outputArtist = service.findById(idArtist);
-        Artist artist = outputArtist.get();
+        Artist artist = outputArtist.orElseThrow();
 
         //THEN
         assertThat(artist.getId()).isEqualTo(idArtist);

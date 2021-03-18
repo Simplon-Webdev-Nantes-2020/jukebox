@@ -15,8 +15,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
-									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -60,65 +58,12 @@
 					"response": []
 				},
 				{
-					"name": "signin admin",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
-									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
-								},
-								{
-									"key": "_csrf",
-									"value": "{{csrf_value}}",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{localhost}}/signin",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"signin"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "signin toto",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
-									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -168,8 +113,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"    var xsrfCookie = postman.getResponseCookie (\"XSRF-TOKEN\"); \r",
-									"    postman.setEnvironmentVariable ('xsrf-token', xsrfCookie.value);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -688,6 +631,55 @@
 							],
 							"path": [
 								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{csrf_value}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/signin",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"signin"
 							]
 						}
 					},

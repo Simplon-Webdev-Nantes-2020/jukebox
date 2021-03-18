@@ -5,7 +5,6 @@ import co.simplon.jukebox.login.dto.JwtTokens;
 import co.simplon.jukebox.login.model.AppUser;
 import co.simplon.jukebox.login.model.Authority;
 import co.simplon.jukebox.login.repository.AppUserRepository;
-import co.simplon.jukebox.login.service.AppUserServiceImpl;
 import co.simplon.jukebox.login.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -41,7 +39,7 @@ public class JwtTokenProvider {
     private long tokenValidity;
 
     @Value("${security.jwt.refreshtoken.expire-length:82800}")
-    private long resfreshTokenValidity;
+    private long refreshTokenValidity;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -82,11 +80,11 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("email", email);
-        claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull).collect(Collectors.toList()));
+        claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).collect(Collectors.toList()));
         if (refreshToken) {
             claims.put(USER_SECRET, user.getSecretCode());
         }
-        long validityLength = (refreshToken ? resfreshTokenValidity : tokenValidity) * 1000;
+        long validityLength = (refreshToken ? refreshTokenValidity : tokenValidity) * 1000;
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityLength);
 
