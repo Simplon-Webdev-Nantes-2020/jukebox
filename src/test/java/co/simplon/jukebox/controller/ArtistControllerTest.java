@@ -161,8 +161,6 @@ public class ArtistControllerTest {
         Optional<Artist> artist = Optional.of(new Artist("Indo","c'est ma bio",50));
         artist.get().setId(idArtist);
         when(service.findById(idArtist)).thenReturn(artist);
-        when(service.insert(artist.get())).thenReturn(artist.get());
-        when(service.update(idArtist, artist.get())).thenReturn(artist.get());
         doNothing().when(service).delete(idArtist);
 
         //WHEN
