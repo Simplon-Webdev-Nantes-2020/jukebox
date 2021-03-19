@@ -33,4 +33,11 @@ public class AuthController {
         JwtTokens tokens = service.refreshJwtToken(refreshToken);
         return ResponseEntity.ok().body(tokens);
     }
+
+    @PostMapping(value = "/quit")
+    public ResponseEntity<String> reset(@RequestBody String refreshToken) {
+        service.resetRefreshToken(refreshToken);
+        return ResponseEntity.accepted().build();
+    }
+
 }

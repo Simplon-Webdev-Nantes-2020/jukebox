@@ -1,5 +1,6 @@
 package co.simplon.jukebox.login.service;
 
+import co.simplon.jukebox.common.InternalException;
 import co.simplon.jukebox.common.InvalidEntryException;
 import co.simplon.jukebox.login.JwtTokenProvider;
 import co.simplon.jukebox.login.dto.JwtTokens;
@@ -14,10 +15,12 @@ import co.simplon.jukebox.login.repository.AuthorityRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -146,6 +149,20 @@ public class AppUserServiceImpl implements AppUserService{
 
         user.setPassword(passwordEncoder.encode(password.getNewPassword()));
         repository.save(user);
+    }
+
+    @Override
+     public void resetRefreshToken(String token) {
+        String username = jwtTokenProvider.getUsername(token);
+        int nbUpdate = repository.resetSecretCodeFor(username);
+        if (nbUpdate != 1) {
+            throw new InternalException("user not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public void resetAllSecretCode() {
+        repository.resetAllSecretCode();
     }
 
 

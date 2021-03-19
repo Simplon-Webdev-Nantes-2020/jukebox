@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.jsonwebtoken.IncorrectClaimException;
+import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -64,6 +66,18 @@ public class ExceptionAdvice {
 	@ExceptionHandler(InternalException.class)
 	public void handleCustomException(HttpServletResponse res, InternalException ex) throws IOException {
 		res.sendError(ex.getHttpStatus().value(), ex.getMessage());
+	}
+
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ExceptionHandler(IncorrectClaimException.class)
+	public Map<String, Object> handleIncorrectClaimException(IncorrectClaimException ex, HttpServletRequest request) throws IOException {
+		return mapMessage(request, HttpStatus.FORBIDDEN,"claims", "incorrect data");
+	}
+
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(MalformedJwtException.class)
+	public Map<String, Object> handleMalformedJwtException(MalformedJwtException ex, HttpServletRequest request) throws IOException {
+		return mapMessage(request, HttpStatus.INTERNAL_SERVER_ERROR,"claims", ex.getMessage());
 	}
 
 	/**

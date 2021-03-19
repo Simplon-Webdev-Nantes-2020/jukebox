@@ -70,4 +70,10 @@ public class AppUserController {
         return ResponseEntity.accepted().build();
     }
 
+    @DeleteMapping("/tokens")
+    ResponseEntity<String> deleteAllRefreshToken(){
+        service.resetAllSecretCode();
+        return ResponseEntity.accepted().build();
+    }
+
 }

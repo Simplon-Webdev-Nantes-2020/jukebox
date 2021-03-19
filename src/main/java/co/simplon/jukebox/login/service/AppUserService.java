@@ -22,4 +22,6 @@ public interface AppUserService {
     AppUser update(Long id, AppUser user);
     void delete(Long id);
     void changePassword(Long id, NewPasswordDto password);
+    void resetRefreshToken(String username);
+    void resetAllSecretCode();
 }

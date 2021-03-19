@@ -109,7 +109,7 @@ public class AppUser {
     }
 
     public String getSecretCode() {
-        return secretCode;
+       return (secretCode != null) ? secretCode : "";
     }
 
     public void setSecretCode(String secretCode) {
