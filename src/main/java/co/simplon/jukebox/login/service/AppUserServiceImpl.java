@@ -109,6 +109,8 @@ public class AppUserServiceImpl implements AppUserService{
     public AppUser insert(NewUserDto userDto) {
         AppUser user = new AppUser(userDto.getUsername(), userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setAuthorities(userDto.getAuthorities());
+        user.setActive(!user.getAuthorities().isEmpty());
         user.setCreatedDate(LocalDateTime.now());
         return repository.save(user);
     }
@@ -117,7 +119,11 @@ public class AppUserServiceImpl implements AppUserService{
     public AppUser update(Long id, AppUser user) {
         Optional<AppUser> optionalUser = this.findById(id);
         if(optionalUser.isPresent()) {
+            //we keep some information
             user.setPassword(optionalUser.get().getPassword());
+            user.setCreatedDate(optionalUser.get().getCreatedDate());
+            user.setSecretCode((optionalUser.get().getSecretCode()));
+            //update
             return repository.save(user);
         }
         return null;
