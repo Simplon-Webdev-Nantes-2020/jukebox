@@ -38,6 +38,7 @@ public class AppUser {
     private String secretCode;
 
     @ManyToMany
+    @OrderBy("authority ASC")
     @JoinTable(name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_id") })
