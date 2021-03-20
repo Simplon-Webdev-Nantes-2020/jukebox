@@ -43,12 +43,6 @@
 									"key": "password",
 									"value": "password",
 									"type": "text"
-								},
-								{
-									"key": "_csrf",
-									"value": "{{csrf_value}}",
-									"type": "text",
-									"disabled": true
 								}
 							]
 						},
@@ -332,9 +326,11 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"var jwtTokens = JSON.parse(responseBody);",
-							"pm.environment.set(\"jwt_token\", jwtTokens.token);",
-							"pm.environment.set(\"jwt_refresh_token\", jwtTokens.refreshToken);"
+							"if (pm.response.text().length > 0) {",
+							"    let jwtTokens = pm.response.json();",
+							"    pm.environment.set(\"jwt_token\", jwtTokens.token);",
+							"    pm.environment.set(\"jwt_refresh_token\", jwtTokens.refreshToken);",
+							"}"
 						]
 					}
 				}
@@ -467,13 +463,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{admin_url}}/users/{{artist_id}}",
+							"raw": "{{admin_url}}/users/{{user_id}}",
 							"host": [
 								"{{admin_url}}"
 							],
 							"path": [
 								"users",
-								"{{artist_id}}"
+								"{{user_id}}"
 							]
 						}
 					},
@@ -529,11 +525,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -573,11 +564,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -656,11 +642,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -725,11 +706,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -743,6 +719,64 @@
 							],
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desactivate user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response json should contain new user\", function () {\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData).to.have.property('username');\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData).to.have.property('createdDate');\r",
+									"    pm.expect(jsonData).to.have.property('active');\r",
+									"    pm.expect(jsonData).to.have.property('authorities');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"test values\", function () {\r",
+									"        pm.expect(jsonData.username,\"username\").eql('calimero');\r",
+									"        pm.expect(jsonData.createdDate,\"createdDate\").not.eql(null);\r",
+									"        pm.expect(jsonData.active,\"active\").eql(false);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {{new_user_id}},\n    \"username\": \"calimero\",\n    \"email\": \"calimero@jukebox.com\",\n    \"active\": false,\n    \"authorities\": []\n}"
+						},
+						"url": {
+							"raw": "{{admin_url}}/users/{{new_user_id}}",
+							"host": [
+								"{{admin_url}}"
+							],
+							"path": [
+								"users",
+								"{{new_user_id}}"
 							]
 						}
 					},
@@ -765,13 +799,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{admin_url}}/users/{{new_user_id}}",
 							"host": [
@@ -802,13 +830,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{admin_url}}/users/tokens",
 							"host": [
@@ -1049,11 +1071,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1108,11 +1125,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1149,13 +1161,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/artists/{{new_artist_id}}",
 							"host": [
@@ -1362,11 +1368,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1407,11 +1408,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1448,13 +1444,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/albums/{{new_album_id}}",
 							"host": [
@@ -1652,11 +1642,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1697,11 +1682,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1738,13 +1718,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/tracks/{{new_track_id}}",
 							"host": [
@@ -1940,11 +1914,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1985,11 +1954,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -2026,13 +1990,7 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "X-XSRF-TOKEN",
-								"value": "{{xsrf-token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/playlists/{{new_playlist_id}}",
 							"host": [

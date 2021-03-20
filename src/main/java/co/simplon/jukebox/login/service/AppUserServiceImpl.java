@@ -50,8 +50,11 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public JwtTokens signin(String username, String password) throws InvalidEntryException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         AppUser user = repository.findByUsername(username).orElseThrow();
+        if (!user.getActive())
+            throw new InvalidEntryException("user","inactive user");
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        user.setSecretCode(passwordEncoder.encode(user.getUsername() + LocalDateTime.now()));
         JwtTokens tokens = jwtTokenProvider.createTokens(user);
         repository.save(user);
         return tokens;
@@ -75,6 +78,7 @@ public class AppUserServiceImpl implements AppUserService{
         appUser.setAuthorities(Collections.singleton(roleUser.orElseThrow()));
         appUser.setCreatedDate(LocalDateTime.now());
         appUser.setActive(true);
+        appUser.setSecretCode(passwordEncoder.encode(appUser.getUsername() + LocalDateTime.now()));
 
         // JWT
         JwtTokens tokens =  jwtTokenProvider.createTokens(appUser);
@@ -125,7 +129,8 @@ public class AppUserServiceImpl implements AppUserService{
             //we keep some information
             user.setPassword(optionalUser.get().getPassword());
             user.setCreatedDate(optionalUser.get().getCreatedDate());
-            user.setSecretCode((optionalUser.get().getSecretCode()));
+            if (user.getActive())
+                user.setSecretCode((optionalUser.get().getSecretCode()));
             //update
             return repository.save(user);
         }

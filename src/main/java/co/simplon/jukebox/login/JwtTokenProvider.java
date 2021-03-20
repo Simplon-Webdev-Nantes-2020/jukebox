@@ -59,7 +59,6 @@ public class JwtTokenProvider {
      * @return
      */
     public JwtTokens createTokens(AppUser user) {
-        generateSecretCode(user);
         final String token = createToken(user, false);
         final String refreshToken = createToken(user, true);
         return new JwtTokens(token, refreshToken);
@@ -95,12 +94,6 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, tokenSecretKey)
                 .compact();
     }
-
-    private void generateSecretCode(AppUser user) {
-        LocalDateTime time = LocalDateTime.now();
-        user.setSecretCode(user.getUsername() + time);
-    }
-
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));

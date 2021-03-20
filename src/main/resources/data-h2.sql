@@ -1,12 +1,12 @@
 use JUKEBOX_SCHEMA;
 
 /* users / authorities */
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`, `secret_code`)
-    VALUES (1,'admin','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','admin@jukebox.com','2021-03-08 17:13:54','gtdjkcmprudh85d7fj,9854');
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`, `secret_code`)
-    VALUES (2,'manu','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','manu@jukebox.com','2021-03-08 17:13:54','8f5gb8iopà6ggdf:');
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`, `secret_code`)
-    VALUES (3,'toto','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','toto@jukebox.com','2021-03-08 17:13:54', 'lm$5ffk;;788",fhf-');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`)
+    VALUES (1,'admin','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','admin@jukebox.com','2021-03-08 17:13:54');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`)
+    VALUES (2,'manu','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','manu@jukebox.com','2021-03-08 17:13:54');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `created_date`)
+    VALUES (3,'toto','$2a$11$MXOOO1JYngri2arcL6Cic.KuBujhqgz.B2ri6szqN2/cfsdiQa7se','toto@jukebox.com','2021-03-08 17:13:54');
 
 
 INSERT INTO `authority`(`id`, `name`) VALUES (1, 'ROLE_ADMIN');
